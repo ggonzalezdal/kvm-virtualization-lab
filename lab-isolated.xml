@@ -1,0 +1,13 @@
+<network>
+  <name>lab-isolated</name>
+
+  <bridge
+    name="virbr10"
+    stp="on"
+    delay="0"/>
+
+  <ip
+    address="10.10.10.254"
+    netmask="255.255.255.0">
+  </ip>
+</network>
