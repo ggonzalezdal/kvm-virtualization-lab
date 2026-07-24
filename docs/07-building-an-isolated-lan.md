@@ -182,3 +182,40 @@ Reason: ARP cache.
 -   Configure NAT
 -   Turn Alpine-Lab-01 into a Linux router
 -   Route Alpine-Lab-02 and Alpine-Lab-03 through Alpine-Lab-01
+
+## Final State
+
+The isolated LAN is now fully operational and persistent.
+
+### Network
+
+| Device | eth0 | eth1 |
+|---------|------|-------|
+| Alpine-Lab-01 | DHCP (192.168.122.x) | 10.10.10.1/24 |
+| Alpine-Lab-02 | DHCP (192.168.122.137) | 10.10.10.2/24 |
+| Alpine-Lab-03 | DHCP (192.168.122.161) | 10.10.10.3/24 |
+
+### Routing
+
+Each VM now has:
+
+- Default gateway through `eth0`
+- Automatic connected route for `10.10.10.0/24` via `eth1`
+
+Example:
+
+```text
+default via 192.168.122.1 dev eth0
+10.10.10.0/24 dev eth1
+192.168.122.0/24 dev eth0
+```
+
+### Notes
+
+At this stage:
+
+- The isolated LAN is persistent.
+- No routing between networks is performed yet.
+- IP forwarding is still disabled.
+- NAT has not yet been configured.
+- Alpine-Lab-01 has two interfaces but is not yet acting as a router.
