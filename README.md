@@ -1,276 +1,387 @@
 # KVM Virtualization Lab
 
-A hands-on learning repository for KVM, QEMU, libvirt, Alpine Linux, Linux administration, and LPIC-1 practice.
+A hands-on learning repository focused on **KVM, QEMU, libvirt, Alpine Linux, Linux system administration, networking, virtualization, and LPIC-1 preparation**.
 
-## Current Lab Architecture
+The objective of this project is not simply to learn commands, but to build, document, and understand a complete virtual infrastructure using industry best practices.
+
+---
+
+# Current Lab Architecture
 
 ```text
-Windows 11 host
+Windows 11 Host
 └── VirtualBox
-    └── Linux Mint 22.2
-        └── KVM / QEMU / libvirt
-            └── Alpine-Lab-01
+    └── Linux Mint 22.2 (KVM Host)
+        ├── Alpine-Lab-01
+        │   ├── Router
+        │   ├── NAT Gateway
+        │   ├── SSH Server
+        │   └── 10.10.10.1
+        │
+        ├── Alpine-Lab-02
+        │   └── Internal Client
+        │
+        └── Alpine-Lab-03
+            └── Internal Client
 ```
 
-This is a nested virtualization lab. KVM runs inside a Linux Mint virtual machine, which itself runs inside VirtualBox.
+This is a **nested virtualization laboratory**.
 
-## Current Progress
+```
+Windows
+    ↓
+VirtualBox
+    ↓
+Linux Mint
+    ↓
+KVM / libvirt
+    ↓
+Multiple Linux virtual machines
+```
 
-- Nested virtualization enabled
-- KVM modules loaded
-- `/dev/kvm` available
-- libvirt installed and running
-- virt-manager installed
-- Alpine Linux 3.24.1 installed
-- Default libvirt NAT networking working
-- Alpine VM address assigned from `192.168.122.0/24`
-- VirtIO disk detected as `/dev/vda`
-- Baseline snapshot created:
-  - `01-fresh-alpine-install`
+The entire environment is managed primarily from the command line using **virsh**, SSH, and standard Linux administration tools.
 
-## Roadmap
+---
 
-### Phase 1 — `virsh` Command-Line VM Management
+# Current Progress
 
-Goal: manage virtual machines without relying on virt-manager.
+## Infrastructure
 
-Topics:
+- ✅ Nested virtualization operational
+- ✅ KVM/QEMU installed
+- ✅ libvirt configured
+- ✅ virt-manager installed
+- ✅ Alpine Linux 3.24 deployed
+- ✅ VirtIO storage configured
 
-- libvirt architecture
-- `virsh list`
-- `virsh list --all`
-- `virsh start`
-- `virsh shutdown`
-- `virsh reboot`
-- `virsh destroy`
-- `virsh suspend`
-- `virsh resume`
-- `virsh dominfo`
-- `virsh domstate`
-- `virsh domblklist`
-- `virsh domiflist`
-- `virsh console`
-- `virsh dumpxml`
+## Virtual Machines
 
-### Phase 2 — libvirt Networking
+- ✅ Alpine-Lab-01
+- ✅ Alpine-Lab-02
+- ✅ Alpine-Lab-03
 
-Goal: understand and manage virtual networks.
+## Administration
 
-Topics:
+- ✅ SSH key authentication
+- ✅ Secure remote administration
+- ✅ OpenRC service management
+- ✅ Git repository workflow
+- ✅ Documentation for every milestone
 
-- default NAT network
-- DHCP and DNS
-- isolated networks
-- host-only networking
-- bridge networking
-- network XML
-- `virsh net-list`
-- `virsh net-info`
-- `virsh net-dumpxml`
+## Virtualization
 
-### Phase 3 — Snapshots and Cloning
+- ✅ virsh command-line management
+- ✅ VM cloning (manual)
+- ✅ VM cloning (virt-clone)
+- ✅ Snapshot strategy
+- ✅ XML inspection
+- ✅ VM lifecycle management
 
-Goal: create reusable VM templates and recover quickly from mistakes.
+## Networking
 
-Topics:
+- ✅ Default libvirt NAT network
+- ✅ Custom isolated network
+- ✅ Static addressing
+- ✅ Router configuration
+- ✅ IP forwarding
+- ✅ NAT using iptables
+- ✅ Internet access through Alpine-Lab-01
+- ✅ Inter-VM routing
 
-- internal snapshots
-- external snapshots
-- snapshot creation
-- snapshot restore
-- snapshot deletion
-- full clones
-- linked clones
-- VM backup
-- VM export and import
+---
 
-### Phase 4 — SSH Access to Alpine
-
-Goal: administer Alpine remotely instead of using the graphical console.
-
-Topics:
-
-- install OpenSSH
-- enable and start SSH
-- password authentication
-- SSH keys
-- `ssh-copy-id`
-- SCP
-- SFTP
-- basic SSH hardening
-
-### Phase 5 — Multiple VMs and Virtual Networking
-
-Goal: build a small multi-machine Linux lab.
-
-Planned machines:
+# Current Topology
 
 ```text
-Linux Mint KVM host
-├── Alpine-Lab-01
-├── Alpine-Lab-02
-├── Debian-Lab
-└── Rocky-Lab
+                           Internet
+                               │
+                        libvirt NAT
+                               │
+                    192.168.122.0/24
+                               │
+                     Alpine-Lab-01
+                    Router / Gateway
+                 192.168.122.x
+                     10.10.10.1
+                               │
+                     lab-isolated
+                      10.10.10.0/24
+                    ┌──────────┴──────────┐
+                    │                     │
+              Alpine-Lab-02        Alpine-Lab-03
+                10.10.10.2            10.10.10.3
 ```
 
-Exercises:
+---
 
-- ping between guests
-- SSH between guests
-- transfer files
-- inspect ARP and routing tables
-- test DNS and DHCP
-- create isolated lab networks
+# Roadmap
 
-### Phase 6 — LPIC-1 Administration Practice
+## Phase 1 — KVM Fundamentals
 
-Goal: use the virtual machines as a permanent Linux administration lab.
+**Status:** ✅ Complete
 
-Topics:
+Topics
 
-- users and groups
-- permissions
-- ACLs
-- filesystems
-- mounting
-- swap
-- processes
-- logs
-- scheduled tasks
-- package management
-- shell scripting
-- boot process
-- networking
-- OpenRC and systemd differences
+- Nested virtualization
+- KVM installation
+- libvirt architecture
+- virsh fundamentals
+- Virtual machine lifecycle
 
-### Phase 7 — Linux Server Services
+---
 
-Goal: configure practical server workloads.
+## Phase 2 — Virtual Machine Management
 
-Possible services:
+**Status:** ✅ Complete
+
+Topics
+
+- VM cloning
+- Manual cloning
+- virt-clone
+- XML editing
+- Snapshots
+- Recovery
+- Backup strategy
+
+---
+
+## Phase 3 — Networking Foundations
+
+**Status:** ✅ Complete
+
+Topics
+
+- Virtual NICs
+- Bridges
+- NAT
+- Routing
+- ARP
+- ICMP
+- TCP/IP fundamentals
+- Packet capture
+- Custom isolated networks
+- Linux router configuration
+- Persistent routing
+- NAT with iptables
+
+---
+
+## Phase 4 — Network Services
+
+**Status:** 🚧 In Progress
+
+Topics
+
+- DHCP Server
+- DNS Server
+- Local name resolution
+- DHCP reservations
+- DNS forwarding
+- Service verification
+
+---
+
+## Phase 5 — Security
+
+Topics
+
+- iptables
+- nftables
+- Stateful firewalling
+- Default DROP policies
+- Logging
+- Network hardening
+
+---
+
+## Phase 6 — Advanced Networking
+
+Topics
+
+- Static routes
+- VLANs
+- Linux bridges
+- Bonding
+- Multiple subnets
+- VPN concepts
+- Port forwarding
+
+---
+
+## Phase 7 — Storage Management
+
+Topics
+
+- qcow2
+- raw images
+- Sparse files
+- qemu-img
+- Additional virtual disks
+- Filesystems
+- Persistent mounts
+- Storage pools
+- Storage volumes
+
+---
+
+## Phase 8 — Automation
+
+Topics
+
+- VM templates
+- cloud-init
+- Automated provisioning
+- Infrastructure reproducibility
+
+---
+
+## Phase 9 — Linux Server Services
+
+Topics
 
 - nginx
-- Apache HTTP Server
-- MariaDB
+- Apache
 - PostgreSQL
-- DNS
-- NFS
+- MariaDB
 - Samba
-- containers
+- NFS
 
-### Phase 8 — Advanced Virtualization
+---
 
-Topics:
+# Documentation
 
-- VirtIO
-- qcow2 internals
-- storage pools
-- CPU models
-- CPU pinning
-- huge pages
-- cloud-init
-- PCI passthrough concepts
-- nested virtualization
-- performance tuning
+Current documentation
 
-## Final Project
+```
+docs/
 
-Build and document a small virtual datacenter:
-
-```text
-Linux Mint KVM host
-└── libvirt
-    ├── Alpine Router
-    ├── Debian Web Server
-    │   └── nginx
-    ├── Rocky Linux Database Server
-    │   └── PostgreSQL
-    └── Linux Client
+01-virsh-fundamentals.md
+02-ssh-access.md
+03-manual-vm-cloning.md
+04-virt-clone.md
+05-networking-foundations.md
+06-building-an-isolated-lan.md
 ```
 
-The environment will be:
+Additional documentation is added after every completed milestone.
 
-- managed using `virsh`
-- accessed using SSH
-- connected through custom libvirt networks
-- protected with snapshots and backups
-- documented with commands, diagrams, and troubleshooting notes
+---
 
-## Repository Structure
+# Repository Structure
 
 ```text
 kvm-virtualization-lab/
+
 ├── README.md
+│
 ├── docs/
-│   ├── 01-kvm-installation.md
-│   ├── 02-alpine-installation.md
-│   ├── 03-virsh-basics.md
-│   ├── 04-libvirt-networking.md
-│   ├── 05-snapshots-and-cloning.md
-│   ├── 06-ssh-access.md
-│   └── 07-multiple-vms.md
+│
 ├── commands/
-│   ├── virsh-cheatsheet.md
-│   ├── networking-cheatsheet.md
-│   └── troubleshooting.md
+│
 ├── xml/
 │   ├── vm-definitions/
 │   └── network-definitions/
+│
+├── scripts/
+│
 └── images/
 ```
 
-## Documentation Style
+---
 
-Each lab document should contain:
+# Documentation Style
 
-1. Objective
-2. Environment
-3. Commands used
-4. Explanation
-5. Expected output
-6. Problems encountered
-7. Solution
-8. Final verification
-9. LPIC-1 relevance
+Every lab document follows the same structure.
 
-## Important Safety Note
+- Objective
+- Environment
+- Theory
+- Commands
+- Explanation
+- Expected Output
+- Troubleshooting
+- Final Verification
+- LPIC-1 Relevance
 
-Do not publish:
+---
 
-- passwords
-- private SSH keys
-- public IP addresses unless necessary
-- personal usernames when privacy matters
-- API tokens
-- cloud credentials
-- files from `/etc/shadow`
-- secrets embedded in XML or configuration files
+# Git Workflow
 
-Use placeholders such as:
+Every completed milestone includes
+
+- Documentation
+- Git commit
+- VM snapshot(s)
+- Verification tests
+
+This guarantees that the laboratory can always be restored to a known working state.
+
+---
+
+# Current Milestone
+
+## Phase 4 — Network Services
+
+Next objective:
+
+Configure **Alpine-Lab-01** as the DHCP server for the isolated **10.10.10.0/24** network.
+
+Once completed, Alpine-Lab-02 and Alpine-Lab-03 will automatically obtain:
+
+- IP address
+- Gateway
+- DNS server
+- Lease information
+
+exactly as they would on a real enterprise network.
+
+---
+
+# Final Project
+
+Build and fully document a small enterprise-style virtual infrastructure.
 
 ```text
-YOUR_USERNAME
-VM_IP_ADDRESS
-EXAMPLE_PASSWORD
+Linux Mint KVM Host
+│
+└── libvirt
+    │
+    ├── Alpine Router
+    │
+    ├── Debian Web Server
+    │      └── nginx
+    │
+    ├── Rocky Linux Database Server
+    │      └── PostgreSQL
+    │
+    └── Linux Client
 ```
 
-## Next Session
+The environment will be
 
-Start with `virsh` command-line management.
+- managed entirely from the command line
+- administered remotely using SSH
+- connected through custom virtual networks
+- protected with snapshots and backups
+- fully documented
+- version controlled with Git
 
-Initial exercises:
+---
 
-```bash
-virsh list --all
-virsh domstate Alpine-Lab-01
-virsh dominfo Alpine-Lab-01
-virsh domblklist Alpine-Lab-01
-virsh domiflist Alpine-Lab-01
-virsh dumpxml Alpine-Lab-01
-virsh start Alpine-Lab-01
-virsh shutdown Alpine-Lab-01
-```
+# Learning Objectives
 
-## Learning Goal
+This repository is designed to demonstrate practical skills in
 
-The purpose of this repository is not only to collect commands. It is to demonstrate practical Linux virtualization skills, troubleshooting ability, structured documentation, and progress toward Linux system administration work.
+- Linux system administration
+- Virtualization
+- KVM/QEMU
+- libvirt
+- Networking
+- Troubleshooting
+- Infrastructure documentation
+- Git workflow
+- Enterprise Linux administration
+- LPIC-1 preparation
+
+Rather than collecting isolated commands, the goal is to build a realistic virtual infrastructure while understanding **why every component works**.
