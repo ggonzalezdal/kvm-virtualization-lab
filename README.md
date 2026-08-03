@@ -1,33 +1,41 @@
 # KVM Virtualization Lab
 
-A hands-on learning repository focused on **KVM, QEMU, libvirt, Alpine Linux, Linux system administration, networking, virtualization, and LPIC-1 preparation**.
+A hands-on learning repository focused on **KVM, QEMU, libvirt, Alpine
+Linux, Linux system administration, networking, virtualization, and
+LPIC-1 preparation**.
 
-The objective of this project is not simply to learn commands, but to build, document, and understand a complete virtual infrastructure using industry best practices.
+The objective of this project is not simply to learn commands, but to
+build, document, and understand a complete virtual infrastructure using
+industry best practices.
 
----
+------------------------------------------------------------------------
 
 # Current Lab Architecture
 
-```text
+``` text
 Windows 11 Host
 └── VirtualBox
     └── Linux Mint 22.2 (KVM Host)
         ├── Alpine-Lab-01
         │   ├── Router
         │   ├── NAT Gateway
+        │   ├── DHCP Server (dnsmasq)
+        │   ├── DNS Server (dnsmasq)
         │   ├── SSH Server
         │   └── 10.10.10.1
         │
         ├── Alpine-Lab-02
+        │   ├── DHCP Client
         │   └── Internal Client
         │
         └── Alpine-Lab-03
+            ├── DHCP Client
             └── Internal Client
 ```
 
 This is a **nested virtualization laboratory**.
 
-```
+``` text
 Windows
     ↓
 VirtualBox
@@ -39,60 +47,66 @@ KVM / libvirt
 Multiple Linux virtual machines
 ```
 
-The entire environment is managed primarily from the command line using **virsh**, SSH, and standard Linux administration tools.
+The entire environment is managed primarily from the command line using
+**virsh**, SSH, and standard Linux administration tools.
 
----
+------------------------------------------------------------------------
 
 # Current Progress
 
 ## Infrastructure
 
-- ✅ Nested virtualization operational
-- ✅ KVM/QEMU installed
-- ✅ libvirt configured
-- ✅ virt-manager installed
-- ✅ Alpine Linux 3.24 deployed
-- ✅ VirtIO storage configured
+-   ✅ Nested virtualization operational
+-   ✅ KVM/QEMU installed
+-   ✅ libvirt configured
+-   ✅ virt-manager installed
+-   ✅ Alpine Linux 3.24 deployed
+-   ✅ VirtIO storage configured
 
 ## Virtual Machines
 
-- ✅ Alpine-Lab-01
-- ✅ Alpine-Lab-02
-- ✅ Alpine-Lab-03
+-   ✅ Alpine-Lab-01
+-   ✅ Alpine-Lab-02
+-   ✅ Alpine-Lab-03
 
 ## Administration
 
-- ✅ SSH key authentication
-- ✅ Secure remote administration
-- ✅ OpenRC service management
-- ✅ Git repository workflow
-- ✅ Documentation for every milestone
+-   ✅ SSH key authentication
+-   ✅ Secure remote administration
+-   ✅ OpenRC service management
+-   ✅ Git repository workflow
+-   ✅ Documentation for every milestone
 
 ## Virtualization
 
-- ✅ virsh command-line management
-- ✅ VM cloning (manual)
-- ✅ VM cloning (virt-clone)
-- ✅ Snapshot strategy
-- ✅ XML inspection
-- ✅ VM lifecycle management
+-   ✅ virsh command-line management
+-   ✅ VM cloning (manual)
+-   ✅ VM cloning (virt-clone)
+-   ✅ Snapshot strategy
+-   ✅ XML inspection
+-   ✅ VM lifecycle management
 
 ## Networking
 
-- ✅ Default libvirt NAT network
-- ✅ Custom isolated network
-- ✅ Static addressing
-- ✅ Router configuration
-- ✅ IP forwarding
-- ✅ NAT using iptables
-- ✅ Internet access through Alpine-Lab-01
-- ✅ Inter-VM routing
+-   ✅ Default libvirt NAT network
+-   ✅ Custom isolated network
+-   ✅ Linux router configuration
+-   ✅ Static addressing
+-   ✅ IP forwarding
+-   ✅ NAT using iptables
+-   ✅ Internet access through Alpine-Lab-01
+-   ✅ Inter-VM routing
+-   ✅ DHCP using dnsmasq
+-   ✅ Static DHCP reservations
+-   ✅ DNS forwarding
+-   ✅ Local DNS zone (lab.local)
+-   ✅ Automatic hostname resolution
 
----
+------------------------------------------------------------------------
 
 # Current Topology
 
-```text
+``` text
                            Internet
                                │
                         libvirt NAT
@@ -100,160 +114,107 @@ The entire environment is managed primarily from the command line using **virsh*
                     192.168.122.0/24
                                │
                      Alpine-Lab-01
-                    Router / Gateway
-                 192.168.122.x
-                     10.10.10.1
+             Router • NAT • DHCP • DNS
+           192.168.122.x / 10.10.10.1
                                │
                      lab-isolated
                       10.10.10.0/24
                     ┌──────────┴──────────┐
                     │                     │
               Alpine-Lab-02        Alpine-Lab-03
-                10.10.10.2            10.10.10.3
+               DHCP Client          DHCP Client
+                10.10.10.2           10.10.10.3
 ```
 
----
+------------------------------------------------------------------------
 
 # Roadmap
 
-## Phase 1 — KVM Fundamentals
+## Phase 1 --- KVM Fundamentals
+
+**Status:** ✅ Complete
+
+## Phase 2 --- Virtual Machine Management
+
+**Status:** ✅ Complete
+
+## Phase 3 --- Networking Foundations
+
+**Status:** ✅ Complete
+
+## Phase 4 --- Network Services
 
 **Status:** ✅ Complete
 
 Topics
 
-- Nested virtualization
-- KVM installation
-- libvirt architecture
-- virsh fundamentals
-- Virtual machine lifecycle
+-   DHCP server (dnsmasq)
+-   DHCP reservations
+-   DNS server
+-   DNS forwarding
+-   Local DNS zone
+-   Search domains
+-   Automatic hostname resolution
+-   Modular configuration using `/etc/dnsmasq.d`
 
----
+------------------------------------------------------------------------
 
-## Phase 2 — Virtual Machine Management
-
-**Status:** ✅ Complete
-
-Topics
-
-- VM cloning
-- Manual cloning
-- virt-clone
-- XML editing
-- Snapshots
-- Recovery
-- Backup strategy
-
----
-
-## Phase 3 — Networking Foundations
-
-**Status:** ✅ Complete
+## Phase 5 --- Firewall & Security
 
 Topics
 
-- Virtual NICs
-- Bridges
-- NAT
-- Routing
-- ARP
-- ICMP
-- TCP/IP fundamentals
-- Packet capture
-- Custom isolated networks
-- Linux router configuration
-- Persistent routing
-- NAT with iptables
+-   Netfilter architecture
+-   iptables
+-   Stateful firewalling
+-   Default DROP policies
+-   Logging
+-   Network hardening
+-   Port forwarding
 
----
+------------------------------------------------------------------------
 
-## Phase 4 — Network Services
+## Phase 6 --- Advanced Networking
 
-**Status:** 🚧 In Progress
+-   VLANs
+-   Static routes
+-   Linux bridges
+-   Bonding
+-   VPN concepts
 
-Topics
+------------------------------------------------------------------------
 
-- DHCP Server
-- DNS Server
-- Local name resolution
-- DHCP reservations
-- DNS forwarding
-- Service verification
+## Phase 7 --- Storage Management
 
----
+-   qcow2
+-   qemu-img
+-   Storage pools
+-   Storage volumes
+-   Filesystems
 
-## Phase 5 — Security
+------------------------------------------------------------------------
 
-Topics
+## Phase 8 --- Automation
 
-- iptables
-- nftables
-- Stateful firewalling
-- Default DROP policies
-- Logging
-- Network hardening
+-   VM templates
+-   cloud-init
+-   Automated provisioning
 
----
+------------------------------------------------------------------------
 
-## Phase 6 — Advanced Networking
+## Phase 9 --- Linux Server Services
 
-Topics
+-   nginx
+-   Apache
+-   PostgreSQL
+-   MariaDB
+-   Samba
+-   NFS
 
-- Static routes
-- VLANs
-- Linux bridges
-- Bonding
-- Multiple subnets
-- VPN concepts
-- Port forwarding
-
----
-
-## Phase 7 — Storage Management
-
-Topics
-
-- qcow2
-- raw images
-- Sparse files
-- qemu-img
-- Additional virtual disks
-- Filesystems
-- Persistent mounts
-- Storage pools
-- Storage volumes
-
----
-
-## Phase 8 — Automation
-
-Topics
-
-- VM templates
-- cloud-init
-- Automated provisioning
-- Infrastructure reproducibility
-
----
-
-## Phase 9 — Linux Server Services
-
-Topics
-
-- nginx
-- Apache
-- PostgreSQL
-- MariaDB
-- Samba
-- NFS
-
----
+------------------------------------------------------------------------
 
 # Documentation
 
-Current documentation
-
-```
+``` text
 docs/
 
 01-virsh-fundamentals.md
@@ -262,126 +223,120 @@ docs/
 04-virt-clone.md
 05-networking-foundations.md
 06-building-an-isolated-lan.md
+07-persistent-linux-router.md
+08-network-services-dhcp-dns.md
 ```
 
 Additional documentation is added after every completed milestone.
 
----
+------------------------------------------------------------------------
 
 # Repository Structure
 
-```text
+``` text
 kvm-virtualization-lab/
 
 ├── README.md
-│
 ├── docs/
-│
 ├── commands/
-│
 ├── xml/
 │   ├── vm-definitions/
 │   └── network-definitions/
-│
 ├── scripts/
-│
 └── images/
 ```
 
----
+------------------------------------------------------------------------
 
 # Documentation Style
 
-Every lab document follows the same structure.
+Every lab document follows the same structure:
 
-- Objective
-- Environment
-- Theory
-- Commands
-- Explanation
-- Expected Output
-- Troubleshooting
-- Final Verification
-- LPIC-1 Relevance
+-   Objective
+-   Environment
+-   Theory
+-   Commands
+-   Explanation
+-   Expected Output
+-   Troubleshooting
+-   Final Verification
+-   LPIC-1 Relevance
 
----
+------------------------------------------------------------------------
 
 # Git Workflow
 
-Every completed milestone includes
+Every completed milestone includes:
 
-- Documentation
-- Git commit
-- VM snapshot(s)
-- Verification tests
+-   Documentation
+-   Git commit
+-   VM snapshots
+-   Verification tests
 
-This guarantees that the laboratory can always be restored to a known working state.
+This guarantees that the laboratory can always be restored to a known
+working state.
 
----
+------------------------------------------------------------------------
 
 # Current Milestone
 
-## Phase 4 — Network Services
+## Phase 5 --- Firewall & Security
 
-Next objective:
+Next objectives:
 
-Configure **Alpine-Lab-01** as the DHCP server for the isolated **10.10.10.0/24** network.
+-   Understand Linux Netfilter architecture
+-   Learn iptables fundamentals
+-   Implement a stateful firewall
+-   Harden Alpine-Lab-01
+-   Secure traffic between lab networks
 
-Once completed, Alpine-Lab-02 and Alpine-Lab-03 will automatically obtain:
-
-- IP address
-- Gateway
-- DNS server
-- Lease information
-
-exactly as they would on a real enterprise network.
-
----
+------------------------------------------------------------------------
 
 # Final Project
 
-Build and fully document a small enterprise-style virtual infrastructure.
+Build and fully document a small enterprise-style virtual
+infrastructure.
 
-```text
+``` text
 Linux Mint KVM Host
 │
 └── libvirt
     │
     ├── Alpine Router
-    │
-    ├── Debian Web Server
-    │      └── nginx
-    │
-    ├── Rocky Linux Database Server
-    │      └── PostgreSQL
-    │
+    ├── Debian Web Server (nginx)
+    ├── Rocky Linux Database Server (PostgreSQL)
     └── Linux Client
 ```
 
-The environment will be
+The environment will be:
 
-- managed entirely from the command line
-- administered remotely using SSH
-- connected through custom virtual networks
-- protected with snapshots and backups
-- fully documented
-- version controlled with Git
+-   Managed entirely from the command line
+-   Administered remotely using SSH
+-   Connected through custom virtual networks
+-   Protected with snapshots and backups
+-   Fully documented
+-   Version controlled with Git
 
----
+------------------------------------------------------------------------
 
 # Learning Objectives
 
-This repository is designed to demonstrate practical skills in
+This repository demonstrates practical skills in:
 
-- Linux system administration
-- Virtualization
-- KVM/QEMU
-- libvirt
-- Networking
-- Troubleshooting
-- Infrastructure documentation
-- Git workflow
-- Enterprise Linux administration
-- LPIC-1 preparation
+-   Linux system administration
+-   Virtualization
+-   KVM/QEMU
+-   libvirt
+-   Networking
+-   DHCP
+-   DNS
+-   Linux network services
+-   Troubleshooting
+-   Infrastructure documentation
+-   Git workflow
+-   Enterprise Linux administration
+-   LPIC-1 preparation
 
-Rather than collecting isolated commands, the goal is to build a realistic virtual infrastructure while understanding **why every component works**.
+Rather than collecting isolated commands, the goal is to build a
+realistic virtual infrastructure while understanding **why every
+component works**.

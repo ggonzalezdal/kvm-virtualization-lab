@@ -1,64 +1,56 @@
 # Lab Status
 
-This file tracks the current state of the laboratory.
+This file tracks the current state of the KVM Virtualization Lab.
 
----
+------------------------------------------------------------------------
 
 # Current Phase
 
-## Phase 4 — Network Services
+## Phase 5 --- Firewall & Security
 
 Current topic:
 
-DHCP Server
+Linux Netfilter & iptables Fundamentals
 
 Status:
 
-⏳ Not Started
+🚧 Ready to Begin
 
----
+------------------------------------------------------------------------
 
 # Current Infrastructure
 
+``` text
 Windows 11 Host
-
-↓
-
-VirtualBox
-
-↓
-
-Linux Mint 22.2
-
-↓
-
-KVM / libvirt
-
-├── Alpine-Lab-01
 │
-│   Router
-│
-│   NAT Gateway
-│
-│   SSH Server
-│
-│   10.10.10.1
-│
-├── Alpine-Lab-02
-│
-│   Internal Client
-│
-│   10.10.10.2
-│
-└── Alpine-Lab-03
-    Internal Client
-    10.10.10.3
+└── VirtualBox
+    │
+    └── Linux Mint 22.2
+        │
+        └── KVM / libvirt
+            │
+            ├── Alpine-Lab-01
+            │   • Router
+            │   • NAT Gateway
+            │   • DHCP Server
+            │   • DNS Server
+            │   • SSH Server
+            │   • 10.10.10.1
+            │
+            ├── Alpine-Lab-02
+            │   • DHCP Client
+            │   • 10.10.10.2
+            │
+            └── Alpine-Lab-03
+                • DHCP Client
+                • 10.10.10.3
+```
 
----
+------------------------------------------------------------------------
 
 # Completed Milestones
 
-## Phase 1
+## Phase 1 --- KVM Fundamentals
 
 ✔ KVM installation
 
@@ -66,75 +58,90 @@ KVM / libvirt
 
 ✔ Alpine installation
 
----
+------------------------------------------------------------------------
 
-## Phase 2
+## Phase 2 --- Virtual Machine Management
 
-✔ VM cloning
+✔ SSH key authentication
 
-✔ Snapshots
+✔ Manual VM cloning
+
+✔ virt-clone
 
 ✔ XML editing
 
----
+✔ Snapshot strategy
 
-## Phase 3
+------------------------------------------------------------------------
+
+## Phase 3 --- Networking Foundations
 
 ✔ Custom virtual network
 
-✔ Static addressing
-
 ✔ Linux router
+
+✔ Static addressing
 
 ✔ IP forwarding
 
-✔ NAT
+✔ NAT using iptables
 
 ✔ Internet access
 
+✔ Inter-VM routing
+
 ✔ Documentation complete
 
----
+------------------------------------------------------------------------
+
+## Phase 4 --- Network Services
+
+✔ dnsmasq installed
+
+✔ DHCP server
+
+✔ Static DHCP reservations
+
+✔ DNS server
+
+✔ DNS forwarding
+
+✔ Local DNS zone (lab.local)
+
+✔ DNS search domain
+
+✔ Automatic hostname resolution
+
+✔ Modular configuration using /etc/dnsmasq.d
+
+✔ Documentation complete
+
+------------------------------------------------------------------------
 
 # Next Goal
 
-Configure Alpine-Lab-01 as a DHCP server.
+Begin **Phase 5 -- Firewall & Security**
 
-After completion:
+Objectives:
 
-Alpine-Lab-02
+-   Understand Netfilter architecture
+-   Learn iptables fundamentals
+-   Implement a stateful firewall
+-   Harden Alpine-Lab-01
+-   Secure communication between networks
 
-↓
-
-Request IP automatically
-
-↓
-
-Receive gateway
-
-↓
-
-Receive DNS
-
-↓
-
-Internet access without static configuration.
-
----
+------------------------------------------------------------------------
 
 # Latest Snapshots
 
-Linux Mint
+To be created after completion of Phase 4:
 
-...
+-   Linux Mint --- 09-network-services
+-   Alpine-Lab-01 --- 09-network-services
+-   Alpine-Lab-02 --- 09-network-services
+-   Alpine-Lab-03 --- 09-network-services
 
-Alpine-Lab-01
-
-04-networking-foundations
-
-...
-
----
+------------------------------------------------------------------------
 
 # Repository Status
 
@@ -144,7 +151,7 @@ main
 
 Working tree:
 
-Clean
+Ready for Phase 4 documentation commit
 
 Documentation:
 
