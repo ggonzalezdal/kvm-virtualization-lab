@@ -21,6 +21,7 @@ Windows 11 Host
         │   ├── NAT Gateway
         │   ├── DHCP Server (dnsmasq)
         │   ├── DNS Server (dnsmasq)
+        │   ├── Stateful Firewall (iptables)
         │   ├── SSH Server
         │   └── 10.10.10.1
         │
@@ -102,6 +103,21 @@ The entire environment is managed primarily from the command line using
 -   ✅ Local DNS zone (lab.local)
 -   ✅ Automatic hostname resolution
 
+## Security
+
+-   ✅ Netfilter / iptables fundamentals
+-   ✅ Default-deny INPUT policy
+-   ✅ Stateful filtering with conntrack
+-   ✅ Loopback traffic explicitly allowed
+-   ✅ SSH access permitted
+-   ✅ DHCP permitted from the isolated LAN
+-   ✅ DNS permitted from the isolated LAN
+-   ✅ ICMP Echo Request permitted from the isolated LAN
+-   ✅ Firewall rules persisted with OpenRC
+-   ⏳ Stateful FORWARD filtering
+-   ⏳ Firewall logging
+-   ⏳ Additional network hardening
+
 ------------------------------------------------------------------------
 
 # Current Topology
@@ -114,7 +130,7 @@ The entire environment is managed primarily from the command line using
                     192.168.122.0/24
                                │
                      Alpine-Lab-01
-             Router • NAT • DHCP • DNS
+        Router • NAT • DHCP • DNS • Firewall
            192.168.122.x / 10.10.10.1
                                │
                      lab-isolated
@@ -161,14 +177,28 @@ Topics
 
 ## Phase 5 --- Firewall & Security
 
-Topics
+**Status:** 🚧 In Progress
 
--   Netfilter architecture
--   iptables
--   Stateful firewalling
--   Default DROP policies
--   Logging
--   Network hardening
+Completed:
+
+-   Netfilter / iptables fundamentals
+-   INPUT, OUTPUT and FORWARD chain concepts
+-   Default DROP policy for INPUT
+-   Stateful filtering using conntrack
+-   SSH firewall rules
+-   DHCP firewall rules
+-   DNS firewall rules
+-   ICMP filtering
+-   Loopback handling
+-   Firewall persistence
+-   DNS and SSH troubleshooting under a default-deny firewall
+
+Next:
+
+-   Stateful FORWARD filtering
+-   Default DROP policy for FORWARD
+-   Firewall logging
+-   Additional network hardening
 -   Port forwarding
 
 ------------------------------------------------------------------------
@@ -218,13 +248,15 @@ Topics
 docs/
 
 01-virsh-fundamentals.md
-02-ssh-access.md
-03-manual-vm-cloning.md
-04-virt-clone.md
-05-networking-foundations.md
-06-building-an-isolated-lan.md
-07-persistent-linux-router.md
-08-network-services-dhcp-dns.md
+02-snapshot-management.md
+03-ssh-access.md
+04-manual-vm-cloning.md
+05-virt-clone.md
+06-networking-foundations.md
+07-building-an-isolated-lan.md
+08-persistent-linux-router.md
+09-network-services-dhcp-dns.md
+10-firewall-security.md
 ```
 
 Additional documentation is added after every completed milestone.
@@ -282,13 +314,32 @@ working state.
 
 ## Phase 5 --- Firewall & Security
 
-Next objectives:
+Current state:
 
--   Understand Linux Netfilter architecture
--   Learn iptables fundamentals
--   Implement a stateful firewall
--   Harden Alpine-Lab-01
--   Secure traffic between lab networks
+-   ✅ Alpine-Lab-01 uses a default-deny INPUT firewall
+-   ✅ Stateful connection tracking implemented
+-   ✅ SSH, DHCP and DNS explicitly permitted
+-   ✅ ICMP Echo Request permitted from the trusted LAN
+-   ✅ Loopback traffic permitted
+-   ✅ Firewall rules persisted
+-   ✅ Alpine-Lab-02 verified
+-   ✅ Alpine-Lab-03 verified
+-   ✅ DNS hostname resolution verified
+-   ✅ SSH access by hostname verified
+
+Next objective:
+
+**Implement a stateful FORWARD firewall on Alpine-Lab-01.**
+
+The current FORWARD policy remains:
+
+``` text
+FORWARD ACCEPT
+```
+
+The next stage will replace unrestricted forwarding with explicit
+stateful rules for traffic between the isolated LAN and external
+networks.
 
 ------------------------------------------------------------------------
 
@@ -331,6 +382,9 @@ This repository demonstrates practical skills in:
 -   DHCP
 -   DNS
 -   Linux network services
+-   Netfilter / iptables
+-   Stateful firewalling
+-   Network security
 -   Troubleshooting
 -   Infrastructure documentation
 -   Git workflow
