@@ -18,8 +18,8 @@ Status:
 
 Current checkpoint:
 
-**Stateful INPUT firewall complete and persisted. Stateful FORWARD
-filtering is next.**
+**Stateful INPUT and FORWARD firewalls complete and persisted. Firewall
+logging and additional hardening are next.**
 
 ------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ Alpine-Lab-01 filter policies:
 
 ``` text
 INPUT    DROP
-FORWARD  ACCEPT
+FORWARD  DROP
 OUTPUT   ACCEPT
 ```
 
@@ -83,6 +83,30 @@ INPUT DROP
 └── eth1 ICMP echo-request      ACCEPT   ping
 ```
 
+Persisted FORWARD rules:
+
+``` text
+FORWARD DROP
+│
+├── RELATED,ESTABLISHED         ACCEPT
+└── eth1 -> eth0
+    source 10.10.10.0/24
+    NEW                         ACCEPT
+```
+
+The resulting forwarding policy is:
+
+``` text
+LAN -> WAN
+NEW traffic                         ACCEPT
+
+WAN -> LAN
+ESTABLISHED,RELATED traffic         ACCEPT
+
+WAN -> LAN
+Unsolicited NEW traffic             DROP
+```
+
 NAT remains enabled for the isolated LAN:
 
 ``` text
@@ -96,6 +120,12 @@ Firewall state is persisted in:
 ```
 
 using the Alpine OpenRC `iptables` service.
+
+Latest saved firewall state:
+
+``` text
+Wed Aug 19 09:43:26 2026
+```
 
 ------------------------------------------------------------------------
 
@@ -171,7 +201,7 @@ using the Alpine OpenRC `iptables` service.
 
 ## Phase 5 --- Firewall & Security
 
-### Completed so far
+### INPUT firewall completed
 
 ✔ Netfilter / iptables fundamentals
 
@@ -197,8 +227,6 @@ using the Alpine OpenRC `iptables` service.
 
 ✔ Firewall rule counters inspected and understood
 
-✔ Firewall persistence configured and verified
-
 ✔ DNS troubleshooting under a default-deny firewall
 
 ✔ SSH hostname and host-key troubleshooting
@@ -207,7 +235,71 @@ using the Alpine OpenRC `iptables` service.
 
 ✔ Alpine-Lab-03 connectivity verified
 
-### Important troubleshooting completed
+### FORWARD firewall completed
+
+✔ Observed traffic under the original `FORWARD ACCEPT` policy
+
+✔ Added `RELATED,ESTABLISHED` forwarding rule
+
+✔ Added explicit `NEW` forwarding rule from eth1 to eth0 for
+10.10.10.0/24
+
+✔ Used packet counters to verify conntrack state handling
+
+✔ Confirmed normal client traffic matched the explicit FORWARD rules
+
+✔ Changed the default FORWARD policy from ACCEPT to DROP
+
+✔ Verified outbound traffic from Alpine-Lab-02
+
+✔ Verified outbound traffic from Alpine-Lab-03
+
+✔ Verified legitimate outbound traffic did not reach the DROP policy
+
+✔ Verified unsolicited external-to-LAN NEW traffic is dropped
+
+✔ Persisted the completed stateful FORWARD firewall
+
+### Routing experiment completed
+
+Linux Mint was found to have a directly connected route:
+
+``` text
+10.10.10.0/24 dev virbr10
+```
+
+Therefore traffic from Linux Mint directly to Alpine-Lab-02 normally
+bypasses Alpine-Lab-01.
+
+To deliberately force one destination through the router, the temporary
+route:
+
+``` bash
+sudo ip route add 10.10.10.2/32 via 192.168.122.252 dev virbr0
+```
+
+was added.
+
+This demonstrated Linux **longest-prefix matching**:
+
+``` text
+/32 > /24 > /0
+```
+
+The forced packet reached Alpine-Lab-01 through eth0 and was rejected by
+the `FORWARD DROP` policy because it was unsolicited NEW traffic toward
+the LAN.
+
+The FORWARD policy counter recorded:
+
+``` text
+1 packet, 84 bytes
+```
+
+The temporary `/32` route was then removed, restoring Linux Mint's
+normal routing table.
+
+### Important INPUT troubleshooting completed
 
 A local DNS failure on Alpine-Lab-01 was traced with `tcpdump` to DNS
 queries travelling through `lo`. The default-deny INPUT firewall was
@@ -258,7 +350,7 @@ Domain:   lab.local
 Verified:
 
 -   ✔ Router connectivity
--   ✔ Internet connectivity
+-   ✔ Internet connectivity through the stateful FORWARD firewall
 -   ✔ DNS
 -   ✔ SSH by IP
 -   ✔ SSH by hostname
@@ -275,10 +367,55 @@ Domain:   lab.local
 Verified:
 
 -   ✔ Router connectivity
--   ✔ Internet connectivity
+-   ✔ Internet connectivity through the stateful FORWARD firewall
 -   ✔ DNS
 -   ✔ SSH from Alpine-Lab-01 by IP
 -   ✔ SSH from Alpine-Lab-01 by hostname
+
+------------------------------------------------------------------------
+
+# Stateful FORWARD Verification
+
+Before testing both clients:
+
+``` text
+RELATED,ESTABLISHED    10
+NEW                     2
+DROP policy              0
+```
+
+After the outbound tests:
+
+``` text
+RELATED,ESTABLISHED    30
+NEW                     6
+DROP policy              0
+```
+
+Delta:
+
+``` text
+RELATED,ESTABLISHED    +20
+NEW                     +4
+DROP                     +0
+```
+
+This showed that legitimate LAN-initiated traffic was fully handled by
+the explicit stateful rules.
+
+The deliberate unsolicited WAN-to-LAN test then produced:
+
+``` text
+FORWARD policy DROP     1 packet / 84 bytes
+```
+
+This verified both sides of the firewall design:
+
+``` text
+LAN -> WAN NEW                    ACCEPT
+WAN -> LAN ESTABLISHED/RELATED    ACCEPT
+WAN -> LAN unsolicited NEW        DROP
+```
 
 ------------------------------------------------------------------------
 
@@ -286,57 +423,31 @@ Verified:
 
 Continue **Phase 5 --- Firewall & Security**.
 
-Next objective:
-
-**Implement a stateful FORWARD firewall on Alpine-Lab-01.**
-
-Current situation:
+The core stateful firewall is now operational:
 
 ``` text
-FORWARD policy ACCEPT
+INPUT policy       DROP
+FORWARD policy     DROP
+OUTPUT policy      ACCEPT
 ```
 
-The next stage will move toward:
-
-``` text
-FORWARD policy DROP
-```
-
-with explicit stateful rules so that:
-
-``` text
-LAN -> WAN
-NEW traffic                         ACCEPT
-
-WAN -> LAN
-ESTABLISHED,RELATED traffic         ACCEPT
-
-WAN -> LAN
-Unsolicited NEW traffic             DROP
-```
-
-This will apply the same stateful firewall principles already learned
-with INPUT to traffic travelling through Alpine-Lab-01.
-
-Later Phase 5 objectives:
+Next objectives:
 
 -   Firewall logging
 -   Additional network hardening
--   Port forwarding
+-   Review service exposure
+-   Port forwarding / DNAT
+-   Further packet inspection and troubleshooting
 
 ------------------------------------------------------------------------
 
 # Latest Snapshots
 
-Previous network-services checkpoint:
+Previous Phase 5 INPUT firewall checkpoint snapshots were created after
+the INPUT firewall documentation and Git checkpoint.
 
--   Linux Mint --- network-services checkpoint
--   Alpine-Lab-01 --- 07-dhcp-dns-complete
--   Alpine-Lab-02 --- network-services checkpoint
--   Alpine-Lab-03 --- network-services checkpoint
-
-A new **Phase 5 INPUT firewall checkpoint** should now be created before
-changing the FORWARD policy.
+A new snapshot checkpoint should be created after the current stateful
+FORWARD documentation is committed and pushed.
 
 ------------------------------------------------------------------------
 
@@ -354,13 +465,24 @@ Current documentation milestone:
 
 Current state:
 
-Phase 5 INPUT firewall documentation prepared.
+Phase 5 stateful INPUT and FORWARD firewall documentation prepared.
+
+Files updated for this checkpoint:
+
+``` text
+docs/10-firewall-security.md
+README.md
+LAB_STATUS.md
+CHANGELOG.md
+```
 
 Next repository actions:
 
-1. Update `README.md`, `LAB_STATUS.md`, and `CHANGELOG.md`.
-2. Review changes with `git status` / `git diff`.
-3. Commit the Phase 5 INPUT firewall checkpoint.
-4. Create VM snapshots.
-5. Create the corresponding Linux Mint / VirtualBox snapshot.
-6. Begin stateful FORWARD firewalling.
+1.  Update `CHANGELOG.md`.
+2.  Review changes with `git status` and `git diff`.
+3.  Commit the stateful FORWARD firewall checkpoint.
+4.  Push `main`.
+5.  Shut down the VMs cleanly.
+6.  Create VM snapshots.
+7.  Create the corresponding Linux Mint / VirtualBox snapshot.
+8.  Continue Phase 5 with firewall logging and additional hardening.

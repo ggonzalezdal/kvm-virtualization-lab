@@ -102,21 +102,27 @@ The entire environment is managed primarily from the command line using
 -   ✅ DNS forwarding
 -   ✅ Local DNS zone (lab.local)
 -   ✅ Automatic hostname resolution
+-   ✅ Linux longest-prefix routing experiment
 
 ## Security
 
 -   ✅ Netfilter / iptables fundamentals
 -   ✅ Default-deny INPUT policy
--   ✅ Stateful filtering with conntrack
+-   ✅ Stateful INPUT filtering with conntrack
 -   ✅ Loopback traffic explicitly allowed
 -   ✅ SSH access permitted
 -   ✅ DHCP permitted from the isolated LAN
 -   ✅ DNS permitted from the isolated LAN
 -   ✅ ICMP Echo Request permitted from the isolated LAN
+-   ✅ Default-deny FORWARD policy
+-   ✅ Stateful FORWARD filtering with conntrack
+-   ✅ LAN-initiated outbound forwarding explicitly permitted
+-   ✅ Return ESTABLISHED/RELATED traffic explicitly permitted
+-   ✅ Unsolicited WAN-to-LAN NEW traffic blocked and verified
 -   ✅ Firewall rules persisted with OpenRC
--   ⏳ Stateful FORWARD filtering
 -   ⏳ Firewall logging
 -   ⏳ Additional network hardening
+-   ⏳ Port forwarding / DNAT
 
 ------------------------------------------------------------------------
 
@@ -184,22 +190,26 @@ Completed:
 -   Netfilter / iptables fundamentals
 -   INPUT, OUTPUT and FORWARD chain concepts
 -   Default DROP policy for INPUT
--   Stateful filtering using conntrack
+-   Stateful INPUT filtering using conntrack
 -   SSH firewall rules
 -   DHCP firewall rules
 -   DNS firewall rules
 -   ICMP filtering
 -   Loopback handling
+-   Default DROP policy for FORWARD
+-   Stateful FORWARD filtering using conntrack
+-   Explicit LAN-to-WAN NEW forwarding
+-   Explicit RELATED/ESTABLISHED return traffic
+-   Verification of unsolicited WAN-to-LAN blocking
 -   Firewall persistence
 -   DNS and SSH troubleshooting under a default-deny firewall
+-   Routing-path verification and longest-prefix matching experiment
 
 Next:
 
--   Stateful FORWARD filtering
--   Default DROP policy for FORWARD
 -   Firewall logging
 -   Additional network hardening
--   Port forwarding
+-   Port forwarding / DNAT
 
 ------------------------------------------------------------------------
 
@@ -317,29 +327,45 @@ working state.
 Current state:
 
 -   ✅ Alpine-Lab-01 uses a default-deny INPUT firewall
--   ✅ Stateful connection tracking implemented
+-   ✅ Stateful INPUT connection tracking implemented
 -   ✅ SSH, DHCP and DNS explicitly permitted
 -   ✅ ICMP Echo Request permitted from the trusted LAN
 -   ✅ Loopback traffic permitted
+-   ✅ Alpine-Lab-01 uses a default-deny FORWARD firewall
+-   ✅ LAN-to-WAN NEW traffic explicitly permitted
+-   ✅ RELATED/ESTABLISHED forwarded traffic explicitly permitted
+-   ✅ Unsolicited WAN-to-LAN NEW traffic blocked
+-   ✅ FORWARD behavior verified with packet counters
 -   ✅ Firewall rules persisted
 -   ✅ Alpine-Lab-02 verified
 -   ✅ Alpine-Lab-03 verified
 -   ✅ DNS hostname resolution verified
 -   ✅ SSH access by hostname verified
+-   ✅ Longest-prefix route selection demonstrated with a temporary /32
+    route
+
+Current filter policy:
+
+``` text
+INPUT    DROP
+FORWARD  DROP
+OUTPUT   ACCEPT
+```
+
+Current forwarding model:
+
+``` text
+LAN -> WAN NEW                    ACCEPT
+WAN -> LAN ESTABLISHED/RELATED    ACCEPT
+WAN -> LAN unsolicited NEW        DROP
+```
 
 Next objective:
 
-**Implement a stateful FORWARD firewall on Alpine-Lab-01.**
+**Add firewall logging and continue router hardening.**
 
-The current FORWARD policy remains:
-
-``` text
-FORWARD ACCEPT
-```
-
-The next stage will replace unrestricted forwarding with explicit
-stateful rules for traffic between the isolated LAN and external
-networks.
+After logging and additional hardening, Phase 5 will proceed to **port
+forwarding / DNAT**.
 
 ------------------------------------------------------------------------
 
@@ -381,6 +407,7 @@ This repository demonstrates practical skills in:
 -   Networking
 -   DHCP
 -   DNS
+-   Linux routing
 -   Linux network services
 -   Netfilter / iptables
 -   Stateful firewalling
