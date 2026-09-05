@@ -1,10 +1,10 @@
-**# KVM Virtualization Lab**
+**\*\*# KVM Virtualization Lab\*\***
 
-A hands-on learning repository focused on **KVM, QEMU, libvirt, Alpine
+A hands-on learning repository focused on \*\*KVM, QEMU, libvirt, Alpine
 
 Linux, Linux system administration, networking, virtualization, and
 
-LPIC-1 preparation**.
+LPIC-1 preparation\*\*.
 
 The objective of this project is not simply to learn commands, but to
 
@@ -12,11 +12,11 @@ build, document, and understand a complete virtual infrastructure using
 
 industry best practices.
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Current Lab Architecture**
+**\*\*# Current Lab Architecture\*\***
 
-``` text
+\`\`\` text
 
 Windows 11 Host
 
@@ -48,6 +48,8 @@ Windows 11 Host
 
         │   ├── Host Firewall (iptables)
 
+        │   ├── Persistent ext4 Data Storage (/srv/data)
+
         │   ├── SSH Server
 
         │   └── 10.10.10.2
@@ -60,11 +62,11 @@ Windows 11 Host
 
             └── Internal Client
 
-```
+\`\`\`
 
-This is a ****nested virtualization laboratory****.
+This is a *\*\****\*\*nested virtualization laboratory\*\***\*\*.
 
-``` text
+\`\`\` text
 
 Windows
 
@@ -84,159 +86,186 @@ KVM / libvirt
 
 Multiple Linux virtual machines
 
-```
+\`\`\`
 
 The entire environment is managed primarily from the command line using
 
-****virsh****, SSH, and standard Linux administration tools.
+*\*\****\*\*virsh\*\***\*\*, SSH, and standard Linux administration tools.
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Current Progress**
+**\*\*# Current Progress\*\***
 
-**## Infrastructure**
+**\*\*## Infrastructure\*\***
 
--   ✅ Nested virtualization operational
+\-   ✅ Nested virtualization operational
 
--   ✅ KVM/QEMU installed
+\-   ✅ KVM/QEMU installed
 
--   ✅ libvirt configured
+\-   ✅ libvirt configured
 
--   ✅ virt-manager installed
+\-   ✅ virt-manager installed
 
--   ✅ Alpine Linux 3.24 deployed
+\-   ✅ Alpine Linux 3.24 deployed
 
--   ✅ VirtIO storage configured
+\-   ✅ VirtIO storage configured
 
-**## Virtual Machines**
+**\*\*## Virtual Machines\*\***
 
--   ✅ Alpine-Lab-01
+\-   ✅ Alpine-Lab-01
 
--   ✅ Alpine-Lab-02
+\-   ✅ Alpine-Lab-02
 
--   ✅ Alpine-Lab-03
+\-   ✅ Alpine-Lab-03
 
-**## Administration**
+**\*\*## Administration\*\***
 
--   ✅ SSH key authentication
+\-   ✅ SSH key authentication
 
--   ✅ Secure remote administration
+\-   ✅ Secure remote administration
 
--   ✅ OpenRC service management
+\-   ✅ OpenRC service management
 
--   ✅ Git repository workflow
+\-   ✅ Git repository workflow
 
--   ✅ Documentation for every milestone
+\-   ✅ Documentation for every milestone
 
-**## Virtualization**
+**\*\*## Virtualization\*\***
 
--   ✅ virsh command-line management
+\-   ✅ virsh command-line management
 
--   ✅ VM cloning (manual)
+\-   ✅ VM cloning (manual)
 
--   ✅ VM cloning (virt-clone)
+\-   ✅ VM cloning (virt-clone)
 
--   ✅ Snapshot strategy
+\-   ✅ Snapshot strategy
 
--   ✅ XML inspection
+\-   ✅ XML inspection
 
--   ✅ VM lifecycle management
+\-   ✅ VM lifecycle management
 
-**## Networking**
+**\*\*## Networking\*\***
 
--   ✅ Default libvirt NAT network
+\-   ✅ Default libvirt NAT network
 
--   ✅ Custom isolated network
+\-   ✅ Custom isolated network
 
--   ✅ Linux router configuration
+\-   ✅ Linux router configuration
 
--   ✅ Static addressing
+\-   ✅ Static addressing
 
--   ✅ IP forwarding
+\-   ✅ IP forwarding
 
--   ✅ NAT using iptables
+\-   ✅ NAT using iptables
 
--   ✅ Internet access through Alpine-Lab-01
+\-   ✅ Internet access through Alpine-Lab-01
 
--   ✅ Inter-VM routing
+\-   ✅ Inter-VM routing
 
--   ✅ DHCP using dnsmasq
+\-   ✅ DHCP using dnsmasq
 
--   ✅ Static DHCP reservations
+\-   ✅ Static DHCP reservations
 
--   ✅ DNS forwarding
+\-   ✅ DNS forwarding
 
--   ✅ Local DNS zone (`lab.local`)
+\-   ✅ Local DNS zone (\`lab.local\`)
 
--   ✅ Automatic hostname resolution
+\-   ✅ Automatic hostname resolution
 
--   ✅ Linux longest-prefix routing experiment
+\-   ✅ Linux longest-prefix routing experiment
 
-**## Security**
+**\*\*## Security\*\***
 
--   ✅ Netfilter / iptables fundamentals
+\-   ✅ Netfilter / iptables fundamentals
 
--   ✅ Default-deny INPUT policy on router
+\-   ✅ Default-deny INPUT policy on router
 
--   ✅ Default-deny FORWARD policy on router
+\-   ✅ Default-deny FORWARD policy on router
 
--   ✅ Stateful filtering with conntrack
+\-   ✅ Stateful filtering with conntrack
 
--   ✅ Loopback traffic explicitly allowed
+\-   ✅ Loopback traffic explicitly allowed
 
--   ✅ SSH restricted to trusted sources
+\-   ✅ SSH restricted to trusted sources
 
--   ✅ DHCP and DNS restricted to the isolated LAN
+\-   ✅ DHCP and DNS restricted to the isolated LAN
 
--   ✅ ICMP filtering
+\-   ✅ ICMP filtering
 
--   ✅ LAN-initiated outbound forwarding
+\-   ✅ LAN-initiated outbound forwarding
 
--   ✅ Return ESTABLISHED/RELATED forwarding
+\-   ✅ Return ESTABLISHED/RELATED forwarding
 
--   ✅ Unsolicited WAN-to-LAN NEW traffic blocked
+\-   ✅ Unsolicited WAN-to-LAN NEW traffic blocked
 
--   ✅ Rate-limited firewall logging
+\-   ✅ Rate-limited firewall logging
 
--   ✅ Nmap open / closed / filtered behavior verified
+\-   ✅ Nmap open / closed / filtered behavior verified
 
--   ✅ DROP vs REJECT behavior verified
+\-   ✅ DROP vs REJECT behavior verified
 
--   ✅ Firewall persistence with OpenRC
+\-   ✅ Firewall persistence with OpenRC
 
--   ✅ Host firewall on Alpine-Lab-02
+\-   ✅ Host firewall on Alpine-Lab-02
 
-**## Linux Services & Service Exposure**
+**\*\*## Storage Management\*\***
 
--   ✅ nginx installed on Alpine-Lab-02
+\-   ✅ libvirt storage pools and volumes inspected
 
--   ✅ OpenRC service lifecycle and boot enablement
+\-   ✅ qcow2 and RAW image behavior compared
 
--   ✅ Custom static web page served over HTTP
+\-   ✅ `qemu-img` create / info / check / convert / resize
 
--   ✅ nginx access and error logs inspected
+\-   ✅ Additional qcow2 data disk created and attached persistently
 
--   ✅ nginx process privileges and document-root permissions
+\-   ✅ Guest block-device enumeration investigated
+
+\-   ✅ MBR partition and ext4 filesystem created
+
+\-   ✅ Persistent `/srv/data` mount configured using filesystem UUID
+
+\-   ✅ Mount persistence verified after reboot
+
+\-   ✅ Virtual disk resized from 2 GiB to 3 GiB
+
+\-   ✅ Partition and ext4 filesystem expanded independently
+
+\-   ✅ Existing data preserved through resize
+
+\-   ✅ `/etc/fstab` UUID failure diagnosed and recovered
+
+
+**\*\*## Linux Services & Service Exposure\*\***
+
+\-   ✅ nginx installed on Alpine-Lab-02
+
+\-   ✅ OpenRC service lifecycle and boot enablement
+
+\-   ✅ Custom static web page served over HTTP
+
+\-   ✅ nginx access and error logs inspected
+
+\-   ✅ nginx process privileges and document-root permissions
 
     investigated
 
--   ✅ nginx bound specifically to `10.10.10.2:80`
+\-   ✅ nginx bound specifically to \`10.10.10.2:80\`
 
--   ✅ Remote HTTP access verified from the isolated LAN
+\-   ✅ Remote HTTP access verified from the isolated LAN
 
--   ✅ SSH and HTTP restricted to `10.10.10.0/24`
+\-   ✅ SSH and HTTP restricted to \`10.10.10.0/24\`
 
--   ✅ Default-deny INPUT policy on Alpine-Lab-02
+\-   ✅ Default-deny INPUT policy on Alpine-Lab-02
 
--   ✅ DROP vs REJECT vs no-listener behavior verified
+\-   ✅ DROP vs REJECT vs no-listener behavior verified
 
--   ✅ nginx and firewall persistence verified after reboot
+\-   ✅ nginx and firewall persistence verified after reboot
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Current Topology**
+**\*\*# Current Topology\*\***
 
-``` text
+\`\`\` text
 
                            Internet
 
@@ -274,189 +303,434 @@ The entire environment is managed primarily from the command line using
 
                 10.10.10.2           10.10.10.3
 
-```
+\`\`\`
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Roadmap**
+**\*\*# Roadmap\*\***
 
-**## Phase 1 --- KVM Fundamentals**
+**\*\*## Phase 1 --- KVM Fundamentals\*\***
 
-****Status:**** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
-**## Phase 2 --- Virtual Machine Management**
+**\*\*## Phase 2 --- Virtual Machine Management\*\***
 
-****Status:**** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
-**## Phase 3 --- Networking Foundations**
+**\*\*## Phase 3 --- Networking Foundations\*\***
 
-****Status:**** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
-**## Phase 4 --- Network Services**
+**\*\*## Phase 4 --- Network Services\*\***
 
-****Status:**** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
 Topics:
 
--   DHCP server (dnsmasq)
+\-   DHCP server (dnsmasq)
 
--   DHCP reservations
+\-   DHCP reservations
 
--   DNS server
+\-   DNS server
 
--   DNS forwarding
+\-   DNS forwarding
 
--   Local DNS zone
+\-   Local DNS zone
 
--   Search domains
+\-   Search domains
 
--   Automatic hostname resolution
+\-   Automatic hostname resolution
 
--   Modular configuration using `/etc/dnsmasq.d`
+\-   Modular configuration using \`/etc/dnsmasq.d\`
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**## Phase 5 --- Firewall & Security**
+**\*\*## Phase 5 --- Firewall & Security\*\***
 
-****Status:**** ✅ Complete
-
-Completed:
-
--   Netfilter / iptables fundamentals
-
--   INPUT, OUTPUT, and FORWARD chain concepts
-
--   Default-deny INPUT and FORWARD policies
-
--   Stateful filtering with conntrack
-
--   SSH, DHCP, DNS, ICMP, and loopback rules
-
--   Explicit LAN-to-WAN NEW forwarding
-
--   Explicit RELATED/ESTABLISHED return traffic
-
--   Firewall logging
-
--   Nmap open / closed / filtered behavior
-
--   DROP vs REJECT behavior
-
--   `rp_filter` vs iptables investigation
-
--   NAT/MASQUERADE and conntrack verification
-
--   Firewall persistence and reboot recovery
-
-------------------------------------------------------------------------
-
-**## Phase 6 --- Linux Services & Service Exposure**
-
-****Status:**** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
 Completed:
 
--   OpenRC service-management fundamentals
+\-   Netfilter / iptables fundamentals
 
--   nginx installation and lifecycle management
+\-   INPUT, OUTPUT, and FORWARD chain concepts
 
--   Processes and listening sockets
+\-   Default-deny INPUT and FORWARD policies
 
--   HTTP testing with curl
+\-   Stateful filtering with conntrack
 
--   nginx access and error logs
+\-   SSH, DHCP, DNS, ICMP, and loopback rules
 
--   Document-root permissions and least privilege
+\-   Explicit LAN-to-WAN NEW forwarding
 
--   Specific service binding to `10.10.10.2:80`
+\-   Explicit RELATED/ESTABLISHED return traffic
 
--   Lab DNS/service-name testing
+\-   Firewall logging
 
--   Host firewall on Alpine-Lab-02
+\-   Nmap open / closed / filtered behavior
 
--   Default-deny INPUT policy
+\-   DROP vs REJECT behavior
 
--   SSH and HTTP restricted to `10.10.10.0/24`
+\-   \`rp\_filter\` vs iptables investigation
 
--   DROP vs REJECT vs no-listener troubleshooting
+\-   NAT/MASQUERADE and conntrack verification
 
--   nginx and iptables persistence verified after reboot
+\-   Firewall persistence and reboot recovery
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**## Phase 7 --- DNAT / Service Publishing**
+**\*\*## Phase 6 --- Linux Services & Service Exposure\*\***
 
-**Status:** ✅ Complete
+*\*\****\*\*Status:\*\***\*\* ✅ Complete
 
 Completed:
 
--   Published Alpine-Lab-02 nginx through Alpine-Lab-01
+\-   OpenRC service-management fundamentals
 
--   DNAT mapping: `192.168.122.252:8080 -> 10.10.10.2:80`
+\-   nginx installation and lifecycle management
 
--   PREROUTING destination translation
+\-   Processes and listening sockets
 
--   FORWARD-chain rule for published HTTP traffic
+\-   HTTP testing with curl
 
--   Backend host-firewall rule for upstream clients
+\-   nginx access and error logs
 
--   Source-address preservation through DNAT
+\-   Document-root permissions and least privilege
 
--   conntrack inspection and reverse-NAT verification
+\-   Specific service binding to \`10.10.10.2:80\`
 
--   Nmap service detection through the published endpoint
+\-   Lab DNS/service-name testing
 
--   tcpdump comparison on `eth0`, `eth1`, and `any`
+\-   Host firewall on Alpine-Lab-02
 
--   TCP SYN / SYN-ACK / ACK / PSH / FIN / RST analysis
+\-   Default-deny INPUT policy
 
--   TCP sequence-number and acknowledgement analysis
+\-   SSH and HTTP restricted to \`10.10.10.0/24\`
 
--   Controlled failure testing: missing DNAT, missing FORWARD rule,
-    backend INPUT DROP, and stopped nginx
+\-   DROP vs REJECT vs no-listener troubleshooting
 
--   iptables persistence and reboot recovery
+\-   nginx and iptables persistence verified after reboot
 
--   Final HTTP `200 OK` verification
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**## Phase 8 --- Storage Management**
+**\*\*## Phase 7 --- DNAT / Service Publishing\*\***
 
--   qcow2
+**\*\*Status:\*\*** ✅ Complete
 
--   qemu-img
+Completed:
 
--   Storage pools
+\-   Published Alpine-Lab-02 nginx through Alpine-Lab-01
 
--   Storage volumes
+\-   DNAT mapping: \`192.168.122.252:8080 -> 10.10.10.2:80\`
 
--   Filesystems
+\-   PREROUTING destination translation
 
-------------------------------------------------------------------------
+\-   FORWARD-chain rule for published HTTP traffic
 
-**## Phase 9 --- Containers & Automation**
+\-   Backend host-firewall rule for upstream clients
 
--   Containers
+\-   Source-address preservation through DNAT
 
--   VM templates
+\-   conntrack inspection and reverse-NAT verification
 
--   cloud-init
+\-   Nmap service detection through the published endpoint
 
--   Automated provisioning
+\-   tcpdump comparison on \`eth0\`, \`eth1\`, and \`any\`
 
-------------------------------------------------------------------------
+\-   TCP SYN / SYN-ACK / ACK / PSH / FIN / RST analysis
 
-**## Phase 10 --- Application & Database Architecture**
+\-   TCP sequence-number and acknowledgement analysis
 
--   Application services
+\-   Controlled failure testing: missing DNAT, missing FORWARD rule,
 
--   PostgreSQL / MariaDB
+    backend INPUT DROP, and stopped nginx
 
--   Multi-tier architecture
+\-   iptables persistence and reboot recovery
 
--   Service-to-service connectivity
+\-   Final HTTP \`200 OK\` verification
 
--   Application/database security boundaries
+\------------------------------------------------------------------------
 
-------------------------------------------------------------------------
+**\*\*## Phase 8 --- Storage Management\*\***
 
+**\*\*Status:\*\*** ✅ Complete
+
+Completed:
+
+\-   libvirt storage pools and volumes
+
+\-   qcow2 and RAW sparse-allocation behavior
+
+\-   `qemu-img` inspection, creation, checking, conversion, and resizing
+
+\-   Additional qcow2 data disk created and attached persistently
+
+\-   Guest block-device identification and `vda` / `vdb` enumeration behavior
+
+\-   MBR partitioning and ext4 filesystem creation
+
+\-   Persistent `/srv/data` mount using UUID in `/etc/fstab`
+
+\-   Reboot persistence verification
+
+\-   End-to-end resize: qcow2 → virtual disk → partition → ext4
+
+\-   Online ext4 expansion with `resize2fs`
+
+\-   Data-integrity verification after resizing
+
+\-   Controlled `/etc/fstab` UUID failure and recovery
+
+\------------------------------------------------------------------------
+
+**\*\*## Phase 9 --- Containers & Automation\*\***
+
+\-   Containers
+
+\-   VM templates
+
+\-   cloud-init
+
+\-   Automated provisioning
+
+\------------------------------------------------------------------------
+
+**\*\*## Phase 10 --- Application & Database Architecture\*\***
+
+\-   Application services
+
+\-   PostgreSQL / MariaDB
+
+\-   Multi-tier architecture
+
+\-   Service-to-service connectivity
+
+\-   Application/database security boundaries
+
+\------------------------------------------------------------------------
+
+**\*\*# Documentation\*\***
+
+\`\`\` text
+
+docs/
+
+01-virsh-fundamentals.md
+
+02-snapshot-management.md
+
+03-ssh-access.md
+
+04-manual-vm-cloning.md
+
+05-virt-clone.md
+
+06-networking-foundations.md
+
+07-building-an-isolated-lan.md
+
+08-persistent-linux-router.md
+
+09-network-services-dhcp-dns.md
+
+10-firewall-security.md
+
+11-linux-services-nginx.md
+
+12-service-publishing-dnat.md
+
+13-storage-management.md
+
+\`\`\`
+
+Additional documentation is added after every completed milestone.
+
+\------------------------------------------------------------------------
+
+**\*\*# Repository Structure\*\***
+
+\`\`\` text
+
+kvm-virtualization-lab/
+
+├── README.md
+
+├── docs/
+
+├── commands/
+
+├── xml/
+
+│   ├── vm-definitions/
+
+│   └── network-definitions/
+
+├── scripts/
+
+└── images/
+
+\`\`\`
+
+\------------------------------------------------------------------------
+
+**\*\*# Documentation Style\*\***
+
+Every lab document follows the same structure:
+
+\-   Objective
+
+\-   Environment
+
+\-   Theory
+
+\-   Commands
+
+\-   Explanation
+
+\-   Expected Output
+
+\-   Troubleshooting
+
+\-   Final Verification
+
+\-   LPIC-1 Relevance
+
+\------------------------------------------------------------------------
+
+**\*\*# Git Workflow\*\***
+
+Every completed milestone includes:
+
+\-   Documentation
+
+\-   Git commit
+
+\-   VM snapshots
+
+\-   Verification tests
+
+This guarantees that the laboratory can always be restored to a known
+
+working state.
+
+\------------------------------------------------------------------------
+
+**\*\*# Current Milestone\*\***
+
+**\*\*## Phase 8 --- Storage Management\*\***
+
+**\*\*Status:\*\*** ✅ Complete
+
+Final storage stack:
+
+\`\`\`text
+
+Linux Mint KVM Host
+        │
+        ▼
+libvirt default storage pool
+        │
+        ▼
+Alpine-Lab-02-data.qcow2 (3 GiB)
+        │
+        ▼
+QEMU / VirtIO
+        │
+        ▼
+Guest data disk
+        │
+        ▼
+/dev/vda1 (3 GiB)
+        │
+        ▼
+ext4 (~2.9 GiB)
+        │
+        ▼
+/srv/data
+        │
+        ▼
+Persistent via UUID in /etc/fstab
+
+\`\`\`
+
+Final Phase 8 state:
+
+\-   ✅ Additional qcow2 data volume attached persistently
+
+\-   ✅ Data disk partitioned and formatted as ext4
+
+\-   ✅ `/srv/data` mounted persistently using filesystem UUID
+
+\-   ✅ Automatic mount verified after reboot
+
+\-   ✅ Persistent test data preserved
+
+\-   ✅ qcow2 resized from 2 GiB to 3 GiB
+
+\-   ✅ Partition expanded independently
+
+\-   ✅ ext4 expanded online with `resize2fs`
+
+\-   ✅ Existing data survived the complete resize
+
+\-   ✅ Incorrect `/etc/fstab` UUID diagnosed and recovered
+
+The next project phase is **\*\*Phase 9 --- Containers & Automation\*\***.
+
+**------------------------------------------------------------------------**
+
+**\*\*# Final Project\*\***
+
+Build and fully document a small enterprise-style virtual
+
+infrastructure.
+
+\`\`\` text
+
+Linux Mint KVM Host
+
+│
+
+└── libvirt
+
+    │
+
+    ├── Alpine-Lab-01  Router / NAT / DHCP / DNS / Firewall
+
+    ├── Alpine-Lab-02  nginx Web Server / Host Firewall
+
+    └── Alpine-Lab-03  Internal Client
+
+Completed infrastructure:
+
+    ├── DNAT / service publishing
+
+    └── Storage management
+
+Future phases:
+
+    ├── Containers & automation
+
+    └── Application / database architecture
+
+\`\`\`
+
+The environment will be:
+
+\-   Managed entirely from the command line
+
+\-   Administered remotely using SSH
+
+\-   Connected through custom virtual networks
+
+\-   Protected with snapshots and backups
+
+\-   Fully documented
+
+\-   Version controlled with Git
+
+\------------------------------------------------------------------------
+
+**\*\*# Learning Objectives\*\***
+
+This repository de

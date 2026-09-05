@@ -1,37 +1,38 @@
-**# Lab Status**
+**\*\*# Lab Status\*\***
 
 This file tracks the current state of the KVM Virtualization Lab.
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Current Phase**
+**\*\*# Current Phase\*\***
 
-**## Phase 7 --- DNAT / Service Publishing**
+**\*\*## Phase 8 --- Storage Management\*\***
 
 Current topic:
 
-Publishing the internal nginx service through Alpine-Lab-01 using DNAT,
-stateful forwarding, backend host firewalling, conntrack, and packet-flow
-analysis.
+KVM/libvirt storage management, qcow2 images, storage pools and volumes,
+guest block devices, filesystems, persistent mounts, resizing, and
+storage troubleshooting.
 
 Status:
 
-✅ **Complete**
+✅ **\*\*Complete\*\***
 
 Current checkpoint:
 
-**Alpine-Lab-02 nginx is now published through Alpine-Lab-01 as
-`192.168.122.252:8080 -> 10.10.10.2:80`. The DNAT rule, router FORWARD
-rule, and backend INPUT rule are persistent and reboot-tested. The complete
-flow has been inspected with conntrack, Nmap, and tcpdump, and the major
-failure modes were deliberately reproduced and diagnosed. Phase 7 technical
-work and documentation are complete; the Git and snapshot checkpoint is
-being finalized.**
-------------------------------------------------------------------------
+**\*\*Alpine-Lab-02 now has a persistent qcow2 data disk expanded from
+2 GiB to 3 GiB, partitioned and formatted as ext4, and mounted at
+`/srv/data` using its filesystem UUID in `/etc/fstab`. Reboot persistence,
+online filesystem growth, data integrity, and a controlled bad-UUID
+`fstab` failure/recovery were verified. Phase 8 technical work and
+documentation are complete; the Git and snapshot checkpoint is being
+finalized.\*\***
 
-**# Current Infrastructure**
+**------------------------------------------------------------------------**
 
-``` text
+**\*\*# Current Infrastructure\*\***
+
+\`\`\` text
 
 Windows 11 Host
 
@@ -65,6 +66,10 @@ Windows 11 Host
 
             │   • Host Firewall (iptables)
 
+            │   • Persistent ext4 Data Storage (/srv/data)
+
+            │   • 3 GiB qcow2 Data Volume
+
             │   • SSH Server
 
             │   • 10.10.10.2/24
@@ -81,87 +86,121 @@ Windows 11 Host
 
                 • Gateway/DNS: 10.10.10.1
 
-```
+\`\`\`
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Alpine-Lab-01 Firewall State**
+**\*\*# Alpine-Lab-01 Firewall State\*\***
 
 Phase 5 remains the security baseline, extended in Phase 7 with an explicit
+
 published-service FORWARD rule and DNAT.
 
-```text
-INPUT    DROP
-FORWARD  DROP
-OUTPUT   ACCEPT
-```
+\`\`\`text
+
+INPUT    DROP
+
+FORWARD  DROP
+
+OUTPUT   ACCEPT
+
+\`\`\`
 
 Persisted INPUT model:
 
-```text
+\`\`\`text
+
 INPUT DROP
+
 │
-├── lo                                             ACCEPT
-├── RELATED,ESTABLISHED                            ACCEPT
-├── eth1 + 10.10.10.0/24 + TCP/22 NEW             ACCEPT  SSH
-├── eth1 + UDP/67                                  ACCEPT  DHCP
-├── eth1 + 10.10.10.0/24 + UDP/53                 ACCEPT  DNS
-├── eth1 + 10.10.10.0/24 + TCP/53 NEW             ACCEPT  DNS
-├── eth1 + 10.10.10.0/24 + ICMP echo-request      ACCEPT
+
+├── lo                                             ACCEPT
+
+├── RELATED,ESTABLISHED                            ACCEPT
+
+├── eth1 + 10.10.10.0/24 + TCP/22 NEW             ACCEPT  SSH
+
+├── eth1 + UDP/67                                  ACCEPT  DHCP
+
+├── eth1 + 10.10.10.0/24 + UDP/53                 ACCEPT  DNS
+
+├── eth1 + 10.10.10.0/24 + TCP/53 NEW             ACCEPT  DNS
+
+├── eth1 + 10.10.10.0/24 + ICMP echo-request      ACCEPT
+
 └── rate-limited IPTABLES-DROP logging
-```
+
+\`\`\`
 
 Persisted FORWARD model:
 
-```text
+\`\`\`text
+
 FORWARD DROP
+
 │
-├── RELATED,ESTABLISHED                            ACCEPT
-├── eth1 -> eth0 + source 10.10.10.0/24 + NEW     ACCEPT
-├── eth0 -> eth1 + 10.10.10.2 + TCP/80 NEW        ACCEPT
+
+├── RELATED,ESTABLISHED                            ACCEPT
+
+├── eth1 -> eth0 + source 10.10.10.0/24 + NEW     ACCEPT
+
+├── eth0 -> eth1 + 10.10.10.2 + TCP/80 NEW        ACCEPT
+
 └── rate-limited FORWARD-DROP logging
-```
+
+\`\`\`
 
 NAT:
 
-```text
+\`\`\`text
+
 POSTROUTING:
+
 10.10.10.0/24 -> eth0 -> MASQUERADE
 
 PREROUTING:
+
 eth0 TCP/8080 -> DNAT -> 10.10.10.2:80
-```
 
-Rules are persisted in `/etc/iptables/rules-save`. Firewall logging is
-handled by BusyBox `klogd` and `syslogd` and stored in
-`/var/log/messages`.
-------------------------------------------------------------------------
+\`\`\`
 
-**# Alpine-Lab-02 Service State**
+Rules are persisted in \`/etc/iptables/rules-save\`. Firewall logging is
 
-**## nginx**
+handled by BusyBox \`klogd\` and \`syslogd\` and stored in
+
+\`/var/log/messages\`.
+
+**------------------------------------------------------------------------**
+
+**\*\*# Alpine-Lab-02 Service State\*\***
+
+**\*\*## nginx\*\***
 
 nginx is installed, running, boot-enabled, and verified after reboot.
 
 Current exposure:
 
-```text
+\`\`\`text
+
 Internal:
+
 10.10.10.2:80 -> nginx
 
 Published:
+
 192.168.122.252:8080 -> DNAT -> 10.10.10.2:80 -> nginx
-```
+
+\`\`\`
 
 Current server definition:
 
-``` nginx
+\`\`\` nginx
 
 server {
 
-    listen 10.10.10.2:80 default_server;
+    listen 10.10.10.2:80 default\_server;
 
-    # listen [::]:80 default_server;
+    # listen [::]:80 default\_server;
 
     root /var/lib/nginx/html;
 
@@ -169,15 +208,15 @@ server {
 
 }
 
-```
+\`\`\`
 
 Custom page:
 
-``` text
+\`\`\` text
 
 /var/lib/nginx/html/lab.html
 
-```
+\`\`\`
 
 HTTP access has been verified locally and remotely from the isolated lab
 
@@ -185,139 +224,155 @@ network.
 
 Important logs:
 
-``` text
+\`\`\` text
 
 /var/log/nginx/access.log
 
 /var/log/nginx/error.log
 
-```
+\`\`\`
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Alpine-Lab-02 Host Firewall**
+**\*\*# Alpine-Lab-02 Host Firewall\*\***
 
 Current policies:
 
-```text
-INPUT    DROP
-FORWARD  ACCEPT
-OUTPUT   ACCEPT
-```
+\`\`\`text
+
+INPUT    DROP
+
+FORWARD  ACCEPT
+
+OUTPUT   ACCEPT
+
+\`\`\`
 
 Current INPUT model:
 
-```text
-INPUT DROP
-│
-├── lo                                             ACCEPT
-├── RELATED,ESTABLISHED                            ACCEPT
-├── 10.10.10.0/24 + TCP/22 NEW                    ACCEPT  SSH
-├── 192.168.122.0/24 -> 10.10.10.2 + TCP/80 NEW  ACCEPT  Published HTTP
-└── 10.10.10.0/24 + TCP/80 NEW                    ACCEPT  Internal HTTP
-```
+\`\`\`text
 
-The Phase 7 rule for `192.168.122.0/24` is required because DNAT changes
+INPUT DROP
+
+│
+
+├── lo                                             ACCEPT
+
+├── RELATED,ESTABLISHED                            ACCEPT
+
+├── 10.10.10.0/24 + TCP/22 NEW                    ACCEPT  SSH
+
+├── 192.168.122.0/24 -> 10.10.10.2 + TCP/80 NEW  ACCEPT  Published HTTP
+
+└── 10.10.10.0/24 + TCP/80 NEW                    ACCEPT  Internal HTTP
+
+\`\`\`
+
+The Phase 7 rule for \`192.168.122.0/24\` is required because DNAT changes
+
 the destination address but preserves the original client source address.
 
 Rules are saved in:
 
-```text
+\`\`\`text
+
 /etc/iptables/rules-save
-```
+
+\`\`\`
 
 and restored at boot through OpenRC.
-------------------------------------------------------------------------
 
-**# Phase 6 Experiments Completed**
+**------------------------------------------------------------------------**
 
-**## OpenRC and services**
+**\*\*# Phase 6 Experiments Completed\*\***
 
-✔ Distinguished installed, running, and boot-enabled states\
+**\*\*## OpenRC and services\*\***
 
-✔ Used `rc-service` for current runtime state\
+✔ Distinguished installed, running, and boot-enabled states\\
 
-✔ Used `rc-update` for boot behavior\
+✔ Used \`rc-service\` for current runtime state\\
 
-✔ Demonstrated the distinction with `crond`\
+✔ Used \`rc-update\` for boot behavior\\
+
+✔ Demonstrated the distinction with \`crond\`\\
 
 ✔ Inspected OpenRC init scripts
 
-**## nginx and HTTP**
+**\*\*## nginx and HTTP\*\***
 
-✔ Installed nginx\
+✔ Installed nginx\\
 
-✔ Inspected nginx configuration structure\
+✔ Inspected nginx configuration structure\\
 
-✔ Started and managed nginx through OpenRC\
+✔ Started and managed nginx through OpenRC\\
 
-✔ Inspected master and worker processes\
+✔ Inspected master and worker processes\\
 
-✔ Inspected listening sockets with `ss`\
+✔ Inspected listening sockets with \`ss\`\\
 
-✔ Created `/var/lib/nginx/html/lab.html`\
+✔ Created \`/var/lib/nginx/html/lab.html\`\\
 
-✔ Verified HTTP `200 OK`\
+✔ Verified HTTP \`200 OK\`\\
 
-✔ Used `curl`, `curl -i`, and `curl -I`
+✔ Used \`curl\`, \`curl -i\`, and \`curl -I\`
 
-**## Logging**
+**\*\*## Logging\*\***
 
-✔ Inspected nginx access and error logs\
+✔ Inspected nginx access and error logs\\
 
-✔ Observed HTTP 200, 304, and 404 behavior\
+✔ Observed HTTP 200, 304, and 404 behavior\\
 
-✔ Verified missing resources in the error log\
+✔ Verified missing resources in the error log\\
 
 ✔ Confirmed firewall-dropped requests do not reach nginx access logging
 
-**## Permissions and least privilege**
+**\*\*## Permissions and least privilege\*\***
 
-✔ Inspected path permissions with `namei -l`\
+✔ Inspected path permissions with \`namei -l\`\\
 
-✔ Identified nginx master and worker users\
+✔ Identified nginx master and worker users\\
 
-✔ Verified nginx can read static content\
+✔ Verified nginx can read static content\\
 
-✔ Verified nginx cannot modify the root-owned static page\
+✔ Verified nginx cannot modify the root-owned static page\\
 
-✔ Reinforced directory traverse (`x`) permission behavior
+✔ Reinforced directory traverse (\`x\`) permission behavior
 
-**## Service binding**
+**\*\*## Service binding\*\***
 
 Initial listeners:
 
-``` text
+\`\`\` text
 
 0.0.0.0:80
 
 [::]:80
 
-```
+\`\`\`
 
 Final listener:
 
-``` text
+\`\`\` text
 
 10.10.10.2:80
 
-```
+\`\`\`
 
-✔ Changed nginx to a specific IPv4 binding\
+✔ Changed nginx to a specific IPv4 binding\\
 
-✔ Validated configuration with `nginx -t`\
+✔ Validated configuration with \`nginx -t\`\\
 
-✔ Investigated graceful reload/socket behavior\
+✔ Investigated graceful reload/socket behavior\\
 
-✔ Used a full restart to obtain the intended socket state\
+✔ Used a full restart to obtain the intended socket state\\
 
-✔ Verified `127.0.0.1:80` no longer listens\
+✔ Verified \`127.0.0.1:80\` no longer listens\\
 
-✔ Verified `10.10.10.2:80` continues serving HTTP
+✔ Verified \`10.10.10.2:80\` continues serving HTTP
 
 Key distinction:
 
-``` text
+\`\`\` text
 
 Binding   -> WHERE the service listens
 
@@ -325,45 +380,45 @@ Routing   -> CAN the client find a path
 
 Firewall  -> IS the traffic permitted
 
-```
+\`\`\`
 
-**## DNS experiment**
+**\*\*## DNS experiment\*\***
 
 ✔ Verified Lab-01 dnsmasq resolves
 
-`alpine-lab-02.lab.local -> 10.10.10.2`\
+\`alpine-lab-02.lab.local -> 10.10.10.2\`\\
 
-✔ Verified direct DNS query from Mint with `dig @10.10.10.1`\
+✔ Verified direct DNS query from Mint with \`dig @10.10.10.1\`\\
 
-✔ Determined Mint normally uses its own external DNS configuration\
+✔ Determined Mint normally uses its own external DNS configuration\\
 
-✔ Deliberately deferred split-DNS configuration\
+✔ Deliberately deferred split-DNS configuration\\
 
-✔ Recorded `.local` as an mDNS-reserved naming consideration
+✔ Recorded \`.local\` as an mDNS-reserved naming consideration
 
-**## Host firewall experiments**
+**\*\*## Host firewall experiments\*\***
 
-✔ Installed iptables on Alpine-Lab-02\
+✔ Installed iptables on Alpine-Lab-02\\
 
-✔ Confirmed the initial ACCEPT policies\
+✔ Confirmed the initial ACCEPT policies\\
 
-✔ Tested temporary TCP/80 DROP\
+✔ Tested temporary TCP/80 DROP\\
 
-✔ Observed timeout and increasing firewall counters\
+✔ Observed timeout and increasing firewall counters\\
 
-✔ Confirmed nginx received no request\
+✔ Confirmed nginx received no request\\
 
-✔ Tested `REJECT --reject-with tcp-reset`\
+✔ Tested \`REJECT --reject-with tcp-reset\`\\
 
-✔ Observed immediate client failure\
+✔ Observed immediate client failure\\
 
-✔ Stopped nginx while TCP/80 was permitted\
+✔ Stopped nginx while TCP/80 was permitted\\
 
 ✔ Observed immediate failure with no listener
 
 Comparison:
 
-``` text
+\`\`\` text
 
 Listening + allowed   -> HTTP 200
 
@@ -373,49 +428,49 @@ Listening + REJECT    -> immediate failure
 
 Not listening         -> immediate failure
 
-```
+\`\`\`
 
-**## Final default-deny firewall**
+**\*\*## Final default-deny firewall\*\***
 
-✔ Loopback ACCEPT\
+✔ Loopback ACCEPT\\
 
-✔ `RELATED,ESTABLISHED` ACCEPT\
+✔ \`RELATED,ESTABLISHED\` ACCEPT\\
 
-✔ NEW SSH from `10.10.10.0/24` ACCEPT\
+✔ NEW SSH from \`10.10.10.0/24\` ACCEPT\\
 
-✔ NEW HTTP from `10.10.10.0/24` ACCEPT\
+✔ NEW HTTP from \`10.10.10.0/24\` ACCEPT\\
 
-✔ INPUT policy changed to DROP\
+✔ INPUT policy changed to DROP\\
 
-✔ SSH verified\
+✔ SSH verified\\
 
-✔ HTTP verified\
+✔ HTTP verified\\
 
-✔ TCP/9999 verified as blocked\
+✔ TCP/9999 verified as blocked\\
 
-✔ Rules saved with `iptables-save`\
+✔ Rules saved with \`iptables-save\`\\
 
-✔ iptables enabled in OpenRC\
+✔ iptables enabled in OpenRC\\
 
-✔ Full reboot performed\
+✔ Full reboot performed\\
 
-✔ Firewall rules restored after reboot\
+✔ Firewall rules restored after reboot\\
 
-✔ nginx restored after reboot\
+✔ nginx restored after reboot\\
 
-✔ TCP/80 listener restored after reboot\
+✔ TCP/80 listener restored after reboot\\
 
 ✔ HTTP connectivity verified after reboot
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Phase 7 Experiments Completed**
+**\*\*# Phase 7 Experiments Completed\*\***
 
-**## DNAT and service publishing**
+**\*\*## DNAT and service publishing\*\***
 
-✔ Published `192.168.122.252:8080` to `10.10.10.2:80`
+✔ Published \`192.168.122.252:8080\` to \`10.10.10.2:80\`
 
-✔ Added DNAT in the `nat` table `PREROUTING` chain
+✔ Added DNAT in the \`nat\` table \`PREROUTING\` chain
 
 ✔ Verified that DNAT occurs before the routing decision
 
@@ -427,37 +482,39 @@ Not listening         -> immediate failure
 
 ✔ Verified original source-address preservation
 
-**## conntrack and reverse NAT**
+**\*\*## conntrack and reverse NAT\*\***
 
-✔ Installed `conntrack-tools`
+✔ Installed \`conntrack-tools\`
 
 ✔ Inspected the original and reply tuples
 
-✔ Observed `[ASSURED]` connections and `TIME_WAIT`
+✔ Observed \`[ASSURED]\` connections and \`TIME\_WAIT\`
 
 ✔ Verified that conntrack maintains the NAT relationship
 
 ✔ Confirmed reverse NAT makes replies appear to come from
-`192.168.122.252:8080`
 
-**## Nmap and service discovery**
+\`192.168.122.252:8080\`
+
+**\*\*## Nmap and service discovery\*\***
 
 ✔ Demonstrated why normal host discovery could report the target down
 
-✔ Used `nmap -Pn -sV -p 8080 192.168.122.252`
+✔ Used \`nmap -Pn -sV -p 8080 192.168.122.252\`
 
 ✔ Identified nginx through the published endpoint
 
 ✔ Confirmed service fingerprinting does not reveal the backend
-`10.10.10.2` address by itself
 
-**## tcpdump and TCP analysis**
+\`10.10.10.2\` address by itself
 
-✔ Captured the external flow on `eth0`
+**\*\*## tcpdump and TCP analysis\*\***
 
-✔ Captured the translated flow on `eth1`
+✔ Captured the external flow on \`eth0\`
 
-✔ Captured both sides simultaneously using `-i any`
+✔ Captured the translated flow on \`eth1\`
+
+✔ Captured both sides simultaneously using \`-i any\`
 
 ✔ Observed SYN, SYN-ACK, ACK, PSH, FIN, and RST behavior
 
@@ -465,59 +522,277 @@ Not listening         -> immediate failure
 
 ✔ Connected repeated SYNs to TCP retransmission behavior
 
-**## Controlled failure testing**
+**\*\*## Controlled failure testing\*\***
 
-```text
+\`\`\`text
+
 DNAT missing
-    -> SYN visible on eth0 only
-    -> destination remains local
-    -> packet takes Lab-01 INPUT path
+
+    -> SYN visible on eth0 only
+
+    -> destination remains local
+
+    -> packet takes Lab-01 INPUT path
 
 Lab-01 FORWARD allow missing
-    -> SYN visible on eth0 only
-    -> translated packet blocked before eth1
+
+    -> SYN visible on eth0 only
+
+    -> translated packet blocked before eth1
 
 Lab-02 INPUT allow missing
-    -> SYN visible on eth0 and eth1
-    -> no reply
-    -> silent retransmissions / timeout
+
+    -> SYN visible on eth0 and eth1
+
+    -> no reply
+
+    -> silent retransmissions / timeout
 
 nginx stopped
-    -> SYN reaches Lab-02
-    -> RST+ACK returns
-    -> immediate connection refusal
+
+    -> SYN reaches Lab-02
+
+    -> RST+ACK returns
+
+    -> immediate connection refusal
 
 Everything working
-    -> full TCP handshake
-    -> HTTP exchange
-    -> HTTP 200
-    -> clean FIN/ACK close
-```
+
+    -> full TCP handshake
+
+    -> HTTP exchange
+
+    -> HTTP 200
+
+    -> clean FIN/ACK close
+
+\`\`\`
 
 ✔ Restored every deliberately removed rule after testing
 
 ✔ Verified persistent rules remained intact
 
-✔ Final request returned `HTTP/1.1 200 OK`
+✔ Final request returned \`HTTP/1.1 200 OK\`
 
-------------------------------------------------------------------------
+\------------------------------------------------------------------------
 
-**# Completed Milestones**
+**\*\*# Phase 8 Experiments Completed\*\***
 
-**## Phase 1 --- KVM Fundamentals**
+**\*\*## Storage inspection and image formats\*\***
 
-✔ KVM installation\
+✔ Inspected VM block devices with `virsh domblklist` and `domblkinfo`
 
-✔ virsh fundamentals\
+✔ Inspected libvirt storage pools and volumes
+
+✔ Compared qcow2 and sparse RAW allocation
+
+✔ Used `qemu-img info`, `create`, `check`, `convert`, and `resize`
+
+**\*\*## Additional data disk\*\***
+
+✔ Created `Alpine-Lab-02-data.qcow2`
+
+✔ Attached the volume persistently to Alpine-Lab-02
+
+✔ Investigated guest `vda` / `vdb` enumeration differences
+
+✔ Partitioned the data disk with `fdisk`
+
+✔ Created an ext4 filesystem
+
+✔ Mounted it persistently at `/srv/data` using UUID in `/etc/fstab`
+
+✔ Verified automatic mounting after reboot
+
+**\*\*## Storage resizing and troubleshooting\*\***
+
+✔ Expanded the qcow2 volume from 2 GiB to 3 GiB
+
+✔ Expanded the partition separately while preserving its starting sector
+
+✔ Expanded ext4 online with `resize2fs`
+
+✔ Verified existing data survived the complete resize
+
+✔ Deliberately introduced an incorrect `/etc/fstab` UUID
+
+✔ Diagnosed the mount failure and restored the correct configuration
+
+Final storage path:
+
+```text
+
+Alpine-Lab-02-data.qcow2 (3 GiB)
+        ↓
+QEMU / VirtIO
+        ↓
+guest data disk
+        ↓
+/dev/vda1 (3 GiB)
+        ↓
+ext4 (~2.9 GiB)
+        ↓
+/srv/data
+        ↓
+UUID in /etc/fstab
+
+```
+
+\------------------------------------------------------------------------
+
+**\*\*# Completed Milestones\*\***
+
+**\*\*## Phase 1 --- KVM Fundamentals\*\***
+
+✔ KVM installation\\
+
+✔ virsh fundamentals\\
 
 ✔ Alpine installation
 
-**## Phase 2 --- Virtual Machine Management**
+**\*\*## Phase 2 --- Virtual Machine Management\*\***
 
-✔ SSH key authentication\
+✔ SSH key authentication\\
 
-✔ Manual VM cloning\
+✔ Manual VM cloning\\
 
-✔ virt-clone\
+✔ virt-clone\\
 
-✔ XML editing\
+✔ XML editing\\
+
+✔ Snapshot strategy
+
+**\*\*## Phase 3 --- Networking Foundations\*\***
+
+✔ Custom virtual network\\
+
+✔ Linux router\\
+
+✔ Static addressing\\
+
+✔ IP forwarding\\
+
+✔ NAT\\
+
+✔ Internet access\\
+
+✔ Inter-VM routing\\
+
+✔ Documentation complete
+
+**\*\*## Phase 4 --- Network Services\*\***
+
+✔ dnsmasq\\
+
+✔ DHCP and reservations\\
+
+✔ DNS and forwarding\\
+
+✔ Local DNS zone and search domain\\
+
+✔ Automatic hostname resolution\\
+
+✔ Modular \`/etc/dnsmasq.d\` configuration\\
+
+✔ Documentation complete
+
+**\*\*## Phase 5 --- Firewall & Security\*\***
+
+✔ Stateful INPUT and FORWARD firewalls\\
+
+✔ Default-deny policies\\
+
+✔ Logging and hardening\\
+
+✔ Nmap packet-analysis experiments\\
+
+✔ DROP vs REJECT\\
+
+✔ \`rp\_filter\` investigation\\
+
+✔ NAT/MASQUERADE and conntrack verification\\
+
+✔ Persistence and reboot recovery\\
+
+✔ Documentation complete\\
+
+✔ Git checkpoint complete\\
+
+✔ Final snapshots complete
+
+**\*\*## Phase 6 --- Linux Services & Service Exposure\*\***
+
+✔ OpenRC service-management fundamentals\\
+
+✔ nginx installation and service management\\
+
+✔ HTTP and static web content\\
+
+✔ nginx logs\\
+
+✔ Filesystem permissions and least privilege\\
+
+✔ Specific service binding\\
+
+✔ DNS/service-name experiment\\
+
+✔ Host firewall\\
+
+✔ DROP vs REJECT vs no-listener experiment\\
+
+✔ Default-deny INPUT\\
+
+✔ nginx persistence\\
+
+✔ iptables persistence\\
+
+✔ Reboot verification
+
+✔ Documentation complete
+
+✔ Git checkpoint complete
+
+✔ Final snapshots complete
+
+
+
+**\*\*## Phase 7 --- DNAT / Service Publishing\*\***
+
+✔ PREROUTING DNAT
+
+✔ Published \`192.168.122.252:8080 -> 10.10.10.2:80\`
+
+✔ Stateful FORWARD rule for published HTTP
+
+✔ Backend firewall rule for upstream source network
+
+✔ Source-address behavior verified
+
+✔ conntrack and reverse NAT inspected
+
+✔ Nmap service fingerprinting through DNAT
+
+✔ tcpdump packet-flow verification
+
+✔ TCP flag / sequence / acknowledgement analysis
+
+✔ Controlled failure-mode troubleshooting
+
+✔ Persistence and reboot recovery
+
+✔ Documentation complete
+
+**\*\*Git/snapshot checkpoint is being finalized.\*\***
+
+
+
+
+**\*\*## Phase 8 --- Storage Management\*\***
+
+✔ libvirt storage pools and volumes
+
+✔ qcow2 and RAW sparse-allocation behavior
+
+✔ `qemu-img` image-management workflow
+
+✔ Additional persistent qcow2 data disk
