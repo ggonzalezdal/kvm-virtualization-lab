@@ -1,10 +1,10 @@
-**\*\*# KVM Virtualization Lab\*\***
+****\\*\\*# KVM Virtualization Lab\\*\\*****
 
-A hands-on learning repository focused on \*\*KVM, QEMU, libvirt, Alpine
+A hands-on learning repository focused on \\*\\*KVM, QEMU, libvirt, Alpine
 
 Linux, Linux system administration, networking, virtualization, and
 
-LPIC-1 preparation\*\*.
+LPIC-1 preparation\\*\\*.
 
 The objective of this project is not simply to learn commands, but to
 
@@ -12,11 +12,11 @@ build, document, and understand a complete virtual infrastructure using
 
 industry best practices.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Current Lab Architecture\*\***
+****\\*\\*# Current Lab Architecture\\*\\*****
 
-\`\`\` text
+\\`\\`\\` text
 
 Windows 11 Host
 
@@ -62,11 +62,11 @@ Windows 11 Host
 
             └── Internal Client
 
-\`\`\`
+\\`\\`\\`
 
-This is a *\*\****\*\*nested virtualization laboratory\*\***\*\*.
+This is a **\\*\\*******\\*\\*nested virtualization laboratory\\*\\*****\\*\\*.
 
-\`\`\` text
+\\`\\`\\` text
 
 Windows
 
@@ -86,17 +86,17 @@ KVM / libvirt
 
 Multiple Linux virtual machines
 
-\`\`\`
+\\`\\`\\`
 
 The entire environment is managed primarily from the command line using
 
-*\*\****\*\*virsh\*\***\*\*, SSH, and standard Linux administration tools.
+**\\*\\*******\\*\\*virsh\\*\\*****\\*\\*, SSH, and standard Linux administration tools.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Current Progress\*\***
+****\\*\\*# Current Progress\\*\\*****
 
-**\*\*## Infrastructure\*\***
+****\\*\\*## Infrastructure\\*\\*****
 
 \-   ✅ Nested virtualization operational
 
@@ -110,7 +110,7 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ VirtIO storage configured
 
-**\*\*## Virtual Machines\*\***
+****\\*\\*## Virtual Machines\\*\\*****
 
 \-   ✅ Alpine-Lab-01
 
@@ -118,7 +118,7 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ Alpine-Lab-03
 
-**\*\*## Administration\*\***
+****\\*\\*## Administration\\*\\*****
 
 \-   ✅ SSH key authentication
 
@@ -130,7 +130,7 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ Documentation for every milestone
 
-**\*\*## Virtualization\*\***
+****\\*\\*## Virtualization\\*\\*****
 
 \-   ✅ virsh command-line management
 
@@ -144,7 +144,7 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ VM lifecycle management
 
-**\*\*## Networking\*\***
+****\\*\\*## Networking\\*\\*****
 
 \-   ✅ Default libvirt NAT network
 
@@ -168,13 +168,13 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ DNS forwarding
 
-\-   ✅ Local DNS zone (\`lab.local\`)
+\-   ✅ Local DNS zone (\\`lab.local\\`)
 
 \-   ✅ Automatic hostname resolution
 
 \-   ✅ Linux longest-prefix routing experiment
 
-**\*\*## Security\*\***
+****\\*\\*## Security\\*\\*****
 
 \-   ✅ Netfilter / iptables fundamentals
 
@@ -208,7 +208,7 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ Host firewall on Alpine-Lab-02
 
-**\*\*## Storage Management\*\***
+****\\*\\*## Storage Management\\*\\*****
 
 \-   ✅ libvirt storage pools and volumes inspected
 
@@ -235,7 +235,8 @@ The entire environment is managed primarily from the command line using
 \-   ✅ `/etc/fstab` UUID failure diagnosed and recovered
 
 
-**\*\*## Linux Services & Service Exposure\*\***
+
+****\\*\\*## Linux Services & Service Exposure\\*\\*****
 
 \-   ✅ nginx installed on Alpine-Lab-02
 
@@ -249,11 +250,11 @@ The entire environment is managed primarily from the command line using
 
     investigated
 
-\-   ✅ nginx bound specifically to \`10.10.10.2:80\`
+\-   ✅ nginx bound specifically to \\`10.10.10.2:80\\`
 
 \-   ✅ Remote HTTP access verified from the isolated LAN
 
-\-   ✅ SSH and HTTP restricted to \`10.10.10.0/24\`
+\-   ✅ SSH and HTTP restricted to \\`10.10.10.0/24\\`
 
 \-   ✅ Default-deny INPUT policy on Alpine-Lab-02
 
@@ -261,11 +262,11 @@ The entire environment is managed primarily from the command line using
 
 \-   ✅ nginx and firewall persistence verified after reboot
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Current Topology\*\***
+****\\*\\*# Current Topology\\*\\*****
 
-\`\`\` text
+\\`\\`\\` text
 
                            Internet
 
@@ -303,27 +304,27 @@ The entire environment is managed primarily from the command line using
 
                 10.10.10.2           10.10.10.3
 
-\`\`\`
+\\`\\`\\`
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Roadmap\*\***
+****\\*\\*# Roadmap\\*\\*****
 
-**\*\*## Phase 1 --- KVM Fundamentals\*\***
+****\\*\\*## Phase 1 --- KVM Fundamentals\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
-**\*\*## Phase 2 --- Virtual Machine Management\*\***
+****\\*\\*## Phase 2 --- Virtual Machine Management\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
-**\*\*## Phase 3 --- Networking Foundations\*\***
+****\\*\\*## Phase 3 --- Networking Foundations\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
-**\*\*## Phase 4 --- Network Services\*\***
+****\\*\\*## Phase 4 --- Network Services\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
 Topics:
 
@@ -341,13 +342,13 @@ Topics:
 
 \-   Automatic hostname resolution
 
-\-   Modular configuration using \`/etc/dnsmasq.d\`
+\-   Modular configuration using \\`/etc/dnsmasq.d\\`
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 5 --- Firewall & Security\*\***
+****\\*\\*## Phase 5 --- Firewall & Security\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
 Completed:
 
@@ -371,17 +372,17 @@ Completed:
 
 \-   DROP vs REJECT behavior
 
-\-   \`rp\_filter\` vs iptables investigation
+\-   \\`rp\\_filter\\` vs iptables investigation
 
 \-   NAT/MASQUERADE and conntrack verification
 
 \-   Firewall persistence and reboot recovery
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 6 --- Linux Services & Service Exposure\*\***
+****\\*\\*## Phase 6 --- Linux Services & Service Exposure\\*\\*****
 
-*\*\****\*\*Status:\*\***\*\* ✅ Complete
+**\\*\\*******\\*\\*Status:\\*\\*****\\*\\* ✅ Complete
 
 Completed:
 
@@ -397,7 +398,7 @@ Completed:
 
 \-   Document-root permissions and least privilege
 
-\-   Specific service binding to \`10.10.10.2:80\`
+\-   Specific service binding to \\`10.10.10.2:80\\`
 
 \-   Lab DNS/service-name testing
 
@@ -405,23 +406,23 @@ Completed:
 
 \-   Default-deny INPUT policy
 
-\-   SSH and HTTP restricted to \`10.10.10.0/24\`
+\-   SSH and HTTP restricted to \\`10.10.10.0/24\\`
 
 \-   DROP vs REJECT vs no-listener troubleshooting
 
 \-   nginx and iptables persistence verified after reboot
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 7 --- DNAT / Service Publishing\*\***
+****\\*\\*## Phase 7 --- DNAT / Service Publishing\\*\\*****
 
-**\*\*Status:\*\*** ✅ Complete
+****\\*\\*Status:\\*\\***** ✅ Complete
 
 Completed:
 
 \-   Published Alpine-Lab-02 nginx through Alpine-Lab-01
 
-\-   DNAT mapping: \`192.168.122.252:8080 -> 10.10.10.2:80\`
+\-   DNAT mapping: \\`192.168.122.252:8080 -> 10.10.10.2:80\\`
 
 \-   PREROUTING destination translation
 
@@ -435,7 +436,7 @@ Completed:
 
 \-   Nmap service detection through the published endpoint
 
-\-   tcpdump comparison on \`eth0\`, \`eth1\`, and \`any\`
+\-   tcpdump comparison on \\`eth0\\`, \\`eth1\\`, and \\`any\\`
 
 \-   TCP SYN / SYN-ACK / ACK / PSH / FIN / RST analysis
 
@@ -447,13 +448,13 @@ Completed:
 
 \-   iptables persistence and reboot recovery
 
-\-   Final HTTP \`200 OK\` verification
+\-   Final HTTP \\`200 OK\\` verification
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 8 --- Storage Management\*\***
+****\\*\\*## Phase 8 --- Storage Management\\*\\*****
 
-**\*\*Status:\*\*** ✅ Complete
+****\\*\\*Status:\\*\\***** ✅ Complete
 
 Completed:
 
@@ -481,37 +482,61 @@ Completed:
 
 \-   Controlled `/etc/fstab` UUID failure and recovery
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 9 --- Containers & Automation\*\***
+****\\*\\*## Phase 9 --- Containers & Automation
 
-\-   Containers
+**Status:** ✅ Complete
 
-\-   VM templates
+Completed:
 
-\-   cloud-init
+- Podman container fundamentals and lifecycle
+- Rootless and daemonless container concepts
+- Images and disposable containers
+- Port publishing
+- Bind mounts and named volumes
+- Container logs and environment variables
+- Custom images using Containerfiles
+- Dedicated container networking with `app-net`
+- Container-to-container DNS/name resolution
+- PostgreSQL with persistent `postgres-data` volume
+- Flask + PostgreSQL multi-container application
+- CRUD REST API: GET / POST / PUT / DELETE
+- KVM lab access through `10.10.10.254:5000`
+- Basic startup automation with `start-stack.sh`
 
-\-   Automated provisioning
+------------------------------------------------------------------------
 
-\------------------------------------------------------------------------
+## Phase 10 --- VM Provisioning & Automation
 
-**\*\*## Phase 10 --- Application & Database Architecture\*\***
+**Status:** ⏳ Next
 
-\-   Application services
+Planned:
 
-\-   PostgreSQL / MariaDB
+- VM templates
+- cloud-init
+- Repeatable VM provisioning
 
-\-   Multi-tier architecture
+------------------------------------------------------------------------
 
-\-   Service-to-service connectivity
+## Phase 11 --- Final Integration / Capstone
 
-\-   Application/database security boundaries
+**Status:** ⏳ Planned
 
-\------------------------------------------------------------------------
+Planned:
 
-**\*\*# Documentation\*\***
+- Integrate the infrastructure built throughout the lab
+- Final verification and recovery testing
+- Documentation cleanup
+- Architecture diagram
+- Final README and status review
+- Final snapshots and Git checkpoint
 
-\`\`\` text
+------------------------------------------------------------------------
+
+# Documentation\\*\\*****
+
+\\`\\`\\` text
 
 docs/
 
@@ -540,16 +565,17 @@ docs/
 12-service-publishing-dnat.md
 
 13-storage-management.md
+14-containers-automation.md
 
-\`\`\`
+\\`\\`\\`
 
 Additional documentation is added after every completed milestone.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Repository Structure\*\***
+****\\*\\*# Repository Structure\\*\\*****
 
-\`\`\` text
+\\`\\`\\` text
 
 kvm-virtualization-lab/
 
@@ -569,11 +595,11 @@ kvm-virtualization-lab/
 
 └── images/
 
-\`\`\`
+\\`\\`\\`
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Documentation Style\*\***
+****\\*\\*# Documentation Style\\*\\*****
 
 Every lab document follows the same structure:
 
@@ -595,9 +621,9 @@ Every lab document follows the same structure:
 
 \-   LPIC-1 Relevance
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Git Workflow\*\***
+****\\*\\*# Git Workflow\\*\\*****
 
 Every completed milestone includes:
 
@@ -613,79 +639,64 @@ This guarantees that the laboratory can always be restored to a known
 
 working state.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Current Milestone\*\***
+****\\*\\*# Current Milestone
 
-**\*\*## Phase 8 --- Storage Management\*\***
+## Phase 9 --- Containers & Automation
 
-**\*\*Status:\*\*** ✅ Complete
+**Status:** ✅ Complete
 
-Final storage stack:
+Final container application stack:
 
-\`\`\`text
+```text
+KVM lab clients
+10.10.10.0/24
+      |
+      v
+Linux Mint 10.10.10.254:5000
+      |
+      v
+Podman port publishing
+      |
+      v
+python-app / Flask :5000
+      |
+      v
+app-net
+      |
+      v
+postgres-db :5432
+      |
+      v
+postgres-data
+persistent volume
+```
 
-Linux Mint KVM Host
-        │
-        ▼
-libvirt default storage pool
-        │
-        ▼
-Alpine-Lab-02-data.qcow2 (3 GiB)
-        │
-        ▼
-QEMU / VirtIO
-        │
-        ▼
-Guest data disk
-        │
-        ▼
-/dev/vda1 (3 GiB)
-        │
-        ▼
-ext4 (~2.9 GiB)
-        │
-        ▼
-/srv/data
-        │
-        ▼
-Persistent via UUID in /etc/fstab
+Final Phase 9 state:
 
-\`\`\`
+- ✅ Podman fundamentals and container lifecycle practiced
+- ✅ Bind mounts and named volumes verified
+- ✅ Custom images built with Containerfiles
+- ✅ Dedicated `app-net` network created
+- ✅ PostgreSQL persistence verified through container recreation
+- ✅ Flask application connected to PostgreSQL by container name
+- ✅ Full CRUD API verified
+- ✅ API reachable from the existing KVM isolated network
+- ✅ Application logs inspected
+- ✅ Basic startup automation verified with `start-stack.sh`
 
-Final Phase 8 state:
+The next project phase is **Phase 10 --- VM Provisioning & Automation**.
 
-\-   ✅ Additional qcow2 data volume attached persistently
+------------------------------------------------------------------------
 
-\-   ✅ Data disk partitioned and formatted as ext4
-
-\-   ✅ `/srv/data` mounted persistently using filesystem UUID
-
-\-   ✅ Automatic mount verified after reboot
-
-\-   ✅ Persistent test data preserved
-
-\-   ✅ qcow2 resized from 2 GiB to 3 GiB
-
-\-   ✅ Partition expanded independently
-
-\-   ✅ ext4 expanded online with `resize2fs`
-
-\-   ✅ Existing data survived the complete resize
-
-\-   ✅ Incorrect `/etc/fstab` UUID diagnosed and recovered
-
-The next project phase is **\*\*Phase 9 --- Containers & Automation\*\***.
-
-**------------------------------------------------------------------------**
-
-**\*\*# Final Project\*\***
+# Final Project\\*\\*****
 
 Build and fully document a small enterprise-style virtual
 
 infrastructure.
 
-\`\`\` text
+\\`\\`\\` text
 
 Linux Mint KVM Host
 
@@ -713,7 +724,7 @@ Future phases:
 
     └── Application / database architecture
 
-\`\`\`
+\\`\\`\\`
 
 The environment will be:
 
@@ -729,8 +740,44 @@ The environment will be:
 
 \-   Version controlled with Git
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*# Learning Objectives\*\***
+****\\*\\*# Learning Objectives\\*\\*****
 
-This repository de
+This repository demonstrates practical skills in:
+
+\-   Linux system administration
+
+\-   Virtualization
+
+\-   KVM/QEMU
+
+\-   libvirt
+
+\-   Networking
+
+\-   DHCP
+
+\-   DNS
+
+\-   Linux routing
+
+\-   Linux network services
+
+\-   nginx
+
+\-   Netfilter / iptables
+
+\-   Stateful firewalling
+
+\-   Network security
+
+\-   Storage management
+
+\-   qcow2 / virtual disk administration
+
+\-   Filesystems and persistent mounts
+
+\-   Troubleshooting
+
+\-   Infrastructure documentation

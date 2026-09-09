@@ -1,32 +1,32 @@
-**\*\*# Changelog\*\***
+****\\*\\*# Changelog\\*\\*****
 
 All notable changes to this laboratory are documented here in
 
 chronological order.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 1 -- KVM Fundamentals\*\***
+****\\*\\*## Phase 1 -- KVM Fundamentals\\*\\*****
 
 \-   Installed Linux Mint KVM environment.
 
 \-   Installed Alpine Linux.
 
-\-   Learned \`virsh\` fundamentals.
+\-   Learned \\`virsh\\` fundamentals.
 
 \-   Created baseline snapshots.
 
 \-   Established the initial Git repository structure.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 2 -- Virtual Machine Management\*\***
+****\\*\\*## Phase 2 -- Virtual Machine Management\\*\\*****
 
 \-   Configured SSH key authentication.
 
 \-   Learned manual VM cloning.
 
-\-   Learned \`virt-clone\`.
+\-   Learned \\`virt-clone\\`.
 
 \-   Explored and edited libvirt XML definitions.
 
@@ -34,9 +34,9 @@ chronological order.
 
 \-   Documented cloning procedures.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 3 -- Networking Foundations\*\***
+****\\*\\*## Phase 3 -- Networking Foundations\\*\\*****
 
 \-   Built a custom isolated virtual network.
 
@@ -44,7 +44,7 @@ chronological order.
 
 \-   Enabled persistent IP forwarding.
 
-\-   Configured NAT using \`iptables\`.
+\-   Configured NAT using \\`iptables\\`.
 
 \-   Verified Internet connectivity for internal clients.
 
@@ -52,13 +52,13 @@ chronological order.
 
 \-   Documented networking experiments and packet analysis.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 4 -- Network Services\*\***
+****\\*\\*## Phase 4 -- Network Services\\*\\*****
 
-**\*\*### DHCP\*\***
+****\\*\\*### DHCP\\*\\*****
 
-\-   Installed and configured \`dnsmasq\`.
+\-   Installed and configured \\`dnsmasq\\`.
 
 \-   Configured DHCP for the isolated network.
 
@@ -66,29 +66,29 @@ chronological order.
 
 \-   Distributed gateway, DNS server, and search domain via DHCP.
 
-**\*\*### DNS\*\***
+****\\*\\*### DNS\\*\\*****
 
 \-   Implemented a local DNS server.
 
 \-   Configured DNS forwarding.
 
-\-   Created the local \`lab.local\` DNS zone.
+\-   Created the local \\`lab.local\\` DNS zone.
 
 \-   Enabled automatic hostname resolution.
 
 \-   Configured Alpine-Lab-01 to use its own DNS service.
 
-**\*\*### System Administration\*\***
+****\\*\\*### System Administration\\*\\*****
 
-\-   Prevented DHCP from overwriting \`/etc/resolv.conf\`.
+\-   Prevented DHCP from overwriting \\`/etc/resolv.conf\\`.
 
-\-   Modularized dnsmasq configuration using \`/etc/dnsmasq.d/lab.conf\`.
+\-   Modularized dnsmasq configuration using \\`/etc/dnsmasq.d/lab.conf\\`.
 
 \-   Refactored service configuration using drop-in configuration
 
     practices.
 
-**\*\*### Verification\*\***
+****\\*\\*### Verification\\*\\*****
 
 \-   Verified DHCP lease allocation.
 
@@ -100,33 +100,33 @@ chronological order.
 
 \-   Completed end-to-end network service validation.
 
-**\*\*### Documentation\*\***
+****\\*\\*### Documentation\\*\\*****
 
-\-   Added \`docs/09-network-services-dhcp-dns.md\`.
+\-   Added \\`docs/09-network-services-dhcp-dns.md\\`.
 
-\-   Updated \`README.md\`, \`LAB\_STATUS.md\`, and \`CHANGELOG.md\`.
+\-   Updated \\`README.md\\`, \\`LAB\\_STATUS.md\\`, and \\`CHANGELOG.md\\`.
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 5 -- Firewall & Security\*\***
+****\\*\\*## Phase 5 -- Firewall & Security\\*\\*****
 
-**\*\*### Netfilter and iptables\*\***
+****\\*\\*### Netfilter and iptables\\*\\*****
 
 \-   Introduced Linux Netfilter packet filtering.
 
-\-   Studied \`INPUT\`, \`OUTPUT\`, and \`FORWARD\`.
+\-   Studied \\`INPUT\\`, \\`OUTPUT\\`, and \\`FORWARD\\`.
 
-\-   Implemented default-deny \`INPUT\` and \`FORWARD\` policies.
+\-   Implemented default-deny \\`INPUT\\` and \\`FORWARD\\` policies.
 
-\-   Introduced stateful filtering with \`conntrack\`.
+\-   Introduced stateful filtering with \\`conntrack\\`.
 
-\-   Studied \`NEW\`, \`ESTABLISHED\`, and \`RELATED\`.
+\-   Studied \\`NEW\\`, \\`ESTABLISHED\\`, and \\`RELATED\\`.
 
-**\*\*### Router INPUT Hardening\*\***
+****\\*\\*### Router INPUT Hardening\\*\\*****
 
 \-   Explicitly allowed loopback.
 
-\-   Allowed \`RELATED,ESTABLISHED\`.
+\-   Allowed \\`RELATED,ESTABLISHED\\`.
 
 \-   Restricted SSH to the trusted LAN.
 
@@ -140,7 +140,7 @@ chronological order.
 
 Final INPUT model:
 
-\`\`\` text
+\\`\\`\\` text
 
 INPUT DROP
 
@@ -162,17 +162,17 @@ INPUT DROP
 
 └── rate-limited IPTABLES-DROP logging
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### Stateful FORWARD Filtering\*\***
+****\\*\\*### Stateful FORWARD Filtering\\*\\*****
 
-\-   Added \`RELATED,ESTABLISHED\` return-traffic handling.
+\-   Added \\`RELATED,ESTABLISHED\\` return-traffic handling.
 
-\-   Added explicit NEW forwarding from \`eth1\` to \`eth0\` for
+\-   Added explicit NEW forwarding from \\`eth1\\` to \\`eth0\\` for
 
-    \`10.10.10.0/24\`.
+    \\`10.10.10.0/24\\`.
 
-\-   Changed the default \`FORWARD\` policy to \`DROP\`.
+\-   Changed the default \\`FORWARD\\` policy to \\`DROP\\`.
 
 \-   Verified outbound connectivity from Alpine-Lab-02 and Alpine-Lab-03.
 
@@ -180,7 +180,7 @@ INPUT DROP
 
 Final forwarding model:
 
-\`\`\` text
+\\`\\`\\` text
 
 LAN -> WAN NEW                     ACCEPT
 
@@ -188,89 +188,89 @@ WAN -> LAN ESTABLISHED/RELATED     ACCEPT
 
 WAN -> LAN unsolicited NEW         DROP
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### Routing and Longest-Prefix Matching\*\***
+****\\*\\*### Routing and Longest-Prefix Matching\\*\\*****
 
-\-   Confirmed Linux Mint has a directly connected \`10.10.10.0/24\` route
+\-   Confirmed Linux Mint has a directly connected \\`10.10.10.0/24\\` route
 
-    through \`virbr10\`.
+    through \\`virbr10\\`.
 
-\-   Added a temporary \`/32\` route to force traffic for \`10.10.10.2\`
+\-   Added a temporary \\`/32\\` route to force traffic for \\`10.10.10.2\\`
 
     through Alpine-Lab-01.
 
 \-   Demonstrated longest-prefix matching:
 
-\`\`\` text
+\\`\\`\\` text
 
 /32 > /24 > /0
 
-\`\`\`
+\\`\\`\\`
 
-\-   Verified forced unsolicited traffic reached the \`FORWARD DROP\`
+\-   Verified forced unsolicited traffic reached the \\`FORWARD DROP\\`
 
     policy.
 
 \-   Removed the temporary route afterward.
 
-**\*\*### Firewall Logging and Hardening\*\***
+****\\*\\*### Firewall Logging and Hardening\\*\\*****
 
-\-   Added rate-limited \`IPTABLES-DROP:\` logging to INPUT.
+\-   Added rate-limited \\`IPTABLES-DROP:\\` logging to INPUT.
 
-\-   Added rate-limited \`FORWARD-DROP:\` logging to FORWARD.
+\-   Added rate-limited \\`FORWARD-DROP:\\` logging to FORWARD.
 
-\-   Verified BusyBox \`syslogd\` and \`klogd\`.
+\-   Verified BusyBox \\`syslogd\\` and \\`klogd\\`.
 
-\-   Confirmed firewall events in \`/var/log/messages\`.
+\-   Confirmed firewall events in \\`/var/log/messages\\`.
 
 \-   Hardened SSH, DNS, and ICMP exposure by interface and source.
 
 \-   Kept DHCP restricted by interface because an initial DHCP client can
 
-    use source \`0.0.0.0\`.
+    use source \\`0.0.0.0\\`.
 
-**\*\*### Nmap and DROP vs REJECT\*\***
+****\\*\\*### Nmap and DROP vs REJECT\\*\\*****
 
 \-   Installed Nmap on Alpine-Lab-02.
 
-\-   Demonstrated \`open\`, \`closed\`, and \`filtered\`.
+\-   Demonstrated \\`open\\`, \\`closed\\`, and \\`filtered\\`.
 
 \-   Verified TCP/22 as open.
 
-\-   Temporarily exposed TCP/8888 with no listener and observed \`closed\`.
+\-   Temporarily exposed TCP/8888 with no listener and observed \\`closed\\`.
 
-\-   Left TCP/9999 under DROP and observed \`filtered\`.
+\-   Left TCP/9999 under DROP and observed \\`filtered\\`.
 
-\-   Tested \`REJECT --reject-with tcp-reset\` and observed immediate
+\-   Tested \\`REJECT --reject-with tcp-reset\\` and observed immediate
 
     rejection.
 
 \-   Removed temporary diagnostic rules afterward.
 
-**\*\*### Reverse-Path Filtering\*\***
+****\\*\\*### Reverse-Path Filtering\\*\\*****
 
-\-   Investigated strict \`rp\_filter=1\`.
+\-   Investigated strict \\`rp\\_filter=1\\`.
 
 \-   Distinguished routing plausibility from firewall authorization:
 
-\`\`\` text
+\\`\\`\\` text
 
-rp\_filter  -> Is the source plausible according to routing?
+rp\\_filter  -> Is the source plausible according to routing?
 
 iptables   -> Is the source authorized by security policy?
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### NAT / MASQUERADE and conntrack\*\***
+****\\*\\*### NAT / MASQUERADE and conntrack\\*\\*****
 
 \-   Revisited the persistent MASQUERADE rule:
 
-\`\`\` bash
+\\`\\`\\` bash
 
 -A POSTROUTING -s 10.10.10.0/24 -o eth0 -j MASQUERADE
 
-\`\`\`
+\\`\\`\\`
 
 \-   Verified NAT and conntrack behavior with packet counters.
 
@@ -278,11 +278,11 @@ iptables   -> Is the source authorized by security policy?
 
     while filter rules continue evaluating packets in that flow.
 
-**\*\*### Persistence and Recovery\*\***
+****\\*\\*### Persistence and Recovery\\*\\*****
 
 \-   Saved the final firewall.
 
-\-   Verified \`/etc/iptables/rules-save\`.
+\-   Verified \\`/etc/iptables/rules-save\\`.
 
 \-   Rebooted Alpine-Lab-01.
 
@@ -292,21 +292,21 @@ iptables   -> Is the source authorized by security policy?
 
 \-   Verified Alpine-Lab-02 and Alpine-Lab-03 connectivity after reboot.
 
-**\*\*### Documentation\*\***
+****\\*\\*### Documentation\\*\\*****
 
-\-   Finalized \`docs/10-firewall-security.md\`.
+\-   Finalized \\`docs/10-firewall-security.md\\`.
 
-\-   Updated \`README.md\`, \`LAB\_STATUS.md\`, and \`CHANGELOG.md\`.
+\-   Updated \\`README.md\\`, \\`LAB\\_STATUS.md\\`, and \\`CHANGELOG.md\\`.
 
 \-   Committed and pushed the Phase 5 checkpoint.
 
 \-   Created final Phase 5 snapshots.
 
-**\*\*### Phase 5 Complete\*\***
+****\\*\\*### Phase 5 Complete\\*\\*****
 
 Final filter policies:
 
-\`\`\` text
+\\`\\`\\` text
 
 INPUT    DROP
 
@@ -314,87 +314,87 @@ FORWARD  DROP
 
 OUTPUT   ACCEPT
 
-\`\`\`
+\\`\\`\\`
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 6 -- Linux Services & Service Exposure\*\***
+****\\*\\*## Phase 6 -- Linux Services & Service Exposure\\*\\*****
 
-**\*\*### OpenRC Service Management\*\***
+****\\*\\*### OpenRC Service Management\\*\\*****
 
 \-   Reviewed the distinction between service definitions and daemon
 
     processes.
 
-\-   Used \`rc-status\`, \`rc-service\`, and \`rc-update\`.
+\-   Used \\`rc-status\\`, \\`rc-service\\`, and \\`rc-update\\`.
 
-\-   Demonstrated with \`crond\` that runtime state and boot enablement are
+\-   Demonstrated with \\`crond\\` that runtime state and boot enablement are
 
     independent.
 
 \-   Established:
 
-\`\`\` text
+\\`\\`\\` text
 
 rc-service start/stop   -> runtime state NOW
 
 rc-update add/del       -> behavior on future boots
 
-\`\`\`
+\\`\\`\\`
 
-\-   Inspected OpenRC init scripts including \`/etc/init.d/sshd\` and
+\-   Inspected OpenRC init scripts including \\`/etc/init.d/sshd\\` and
 
-    \`/etc/init.d/nginx\`.
+    \\`/etc/init.d/nginx\\`.
 
-**\*\*### nginx Installation\*\***
+****\\*\\*### nginx Installation\\*\\*****
 
 \-   Installed nginx on Alpine-Lab-02:
 
-\`\`\` bash
+\\`\\`\\` bash
 
 sudo apk add nginx
 
-\`\`\`
+\\`\\`\\`
 
 \-   Inspected nginx configuration, executable, OpenRC files, and
 
     document root.
 
-\-   Installed \`iproute2\` for \`ss\`.
+\-   Installed \\`iproute2\\` for \\`ss\\`.
 
 \-   Started nginx and inspected its master and worker processes.
 
 \-   Observed initial wildcard listeners:
 
-\`\`\` text
+\\`\\`\\` text
 
 0.0.0.0:80
 
 [::]:80
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### First HTTP Service\*\***
+****\\*\\*### First HTTP Service\\*\\*****
 
 \-   Replaced the default deliberate 404 configuration with a normal
 
     static document root.
 
-\-   Created \`/var/lib/nginx/html/lab.html\`.
+\-   Created \\`/var/lib/nginx/html/lab.html\\`.
 
-\-   Validated configuration with \`nginx -t\`.
+\-   Validated configuration with \\`nginx -t\\`.
 
-\-   Verified HTTP \`200 OK\` locally and remotely.
+\-   Verified HTTP \\`200 OK\\` locally and remotely.
 
-\-   Used \`curl\`, \`curl -i\`, and \`curl -I\` to distinguish body,
+\-   Used \\`curl\\`, \\`curl -i\\`, and \\`curl -I\\` to distinguish body,
 
     headers+body, and HEAD requests.
 
-**\*\*### nginx Logging\*\***
+****\\*\\*### nginx Logging\\*\\*****
 
-\-   Inspected \`/var/log/nginx/access.log\`.
+\-   Inspected \\`/var/log/nginx/access.log\\`.
 
-\-   Inspected \`/var/log/nginx/error.log\`.
+\-   Inspected \\`/var/log/nginx/error.log\\`.
 
 \-   Observed HTTP 200, 304, and 404 behavior.
 
@@ -404,9 +404,9 @@ sudo apk add nginx
 
     logging.
 
-**\*\*### Filesystem Permissions and Least Privilege\*\***
+****\\*\\*### Filesystem Permissions and Least Privilege\\*\\*****
 
-\-   Inspected \`/var/lib/nginx/html/lab.html\` with \`namei -l\`.
+\-   Inspected \\`/var/lib/nginx/html/lab.html\\` with \\`namei -l\\`.
 
 \-   Identified nginx master and worker process privileges.
 
@@ -414,23 +414,23 @@ sudo apk add nginx
 
 \-   Verified the nginx user cannot modify the root-owned static page.
 
-\-   Reinforced directory traversal (\`x\`) permissions and least
+\-   Reinforced directory traversal (\\`x\\`) permissions and least
 
     privilege.
 
-**\*\*### Specific Service Binding\*\***
+****\\*\\*### Specific Service Binding\\*\\*****
 
 \-   Backed up the original server configuration.
 
 \-   Changed nginx to:
 
-\`\`\` nginx
+\\`\\`\\` nginx
 
 server {
 
-    listen 10.10.10.2:80 default\_server;
+    listen 10.10.10.2:80 default\\_server;
 
-    # listen [::]:80 default\_server;
+    # listen [::]:80 default\\_server;
 
     root /var/lib/nginx/html;
 
@@ -438,7 +438,7 @@ server {
 
 }
 
-\`\`\`
+\\`\\`\\`
 
 \-   Validated the configuration.
 
@@ -450,19 +450,19 @@ server {
 
 \-   Verified the final listener:
 
-\`\`\` text
+\\`\\`\\` text
 
 10.10.10.2:80
 
-\`\`\`
+\\`\\`\\`
 
-\-   Verified \`127.0.0.1:80\` no longer accepts connections.
+\-   Verified \\`127.0.0.1:80\\` no longer accepts connections.
 
-\-   Verified \`10.10.10.2:80\` continues returning HTTP 200.
+\-   Verified \\`10.10.10.2:80\\` continues returning HTTP 200.
 
 Established:
 
-\`\`\` text
+\\`\\`\\` text
 
 Binding   -> WHERE the service listens
 
@@ -470,13 +470,13 @@ Routing   -> CAN the client find a network path
 
 Firewall  -> IS the traffic permitted
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### Remote Connectivity and DNS\*\***
+****\\*\\*### Remote Connectivity and DNS\\*\\*****
 
-\-   Verified HTTP access from Linux Mint (\`10.10.10.254\`).
+\-   Verified HTTP access from Linux Mint (\\`10.10.10.254\\`).
 
-\-   Verified HTTP access from Alpine-Lab-03 (\`10.10.10.3\`).
+\-   Verified HTTP access from Alpine-Lab-03 (\\`10.10.10.3\\`).
 
 \-   Correlated both clients with nginx access-log source addresses.
 
@@ -488,25 +488,25 @@ Firewall  -> IS the traffic permitted
 
 \-   Verified lab DNS directly:
 
-\`\`\` bash
+\\`\\`\\` bash
 
 dig @10.10.10.1 alpine-lab-02.lab.local
 
-\`\`\`
+\\`\\`\\`
 
-\-   Received \`10.10.10.2\`.
+\-   Received \\`10.10.10.2\\`.
 
 \-   Deferred split-DNS configuration because it was outside Phase 6.
 
-\-   Recorded \`.local\` as an mDNS-reserved naming consideration.
+\-   Recorded \\`.local\\` as an mDNS-reserved naming consideration.
 
-**\*\*### Alpine-Lab-02 Host Firewall\*\***
+****\\*\\*### Alpine-Lab-02 Host Firewall\\*\\*****
 
 \-   Installed iptables.
 
 \-   Confirmed the initial empty firewall used ACCEPT policies.
 
-**\*\*### DROP vs REJECT vs No Listener\*\***
+****\\*\\*### DROP vs REJECT vs No Listener\\*\\*****
 
 \-   Added a temporary TCP/80 DROP rule and observed client timeout.
 
@@ -514,7 +514,7 @@ dig @10.10.10.1 alpine-lab-02.lab.local
 
 \-   Confirmed nginx received no request.
 
-\-   Replaced DROP with \`REJECT --reject-with tcp-reset\` and observed
+\-   Replaced DROP with \\`REJECT --reject-with tcp-reset\\` and observed
 
     immediate failure.
 
@@ -524,7 +524,7 @@ dig @10.10.10.1 alpine-lab-02.lab.local
 
 Final comparison:
 
-\`\`\` text
+\\`\\`\\` text
 
 Listening + allowed   -> HTTP 200
 
@@ -534,13 +534,13 @@ Listening + REJECT    -> immediate failure
 
 Not listening         -> immediate failure
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### Default-Deny Host Firewall\*\***
+****\\*\\*### Default-Deny Host Firewall\\*\\*****
 
 Built the permanent INPUT firewall:
 
-\`\`\` text
+\\`\\`\\` text
 
 1  lo                                  ACCEPT
 
@@ -552,7 +552,7 @@ Built the permanent INPUT firewall:
 
    INPUT policy                        DROP
 
-\`\`\`
+\\`\\`\\`
 
 \-   Verified SSH remained available.
 
@@ -562,29 +562,29 @@ Built the permanent INPUT firewall:
 
     policy.
 
-**\*\*### Firewall Persistence\*\***
+****\\*\\*### Firewall Persistence\\*\\*****
 
 \-   Saved the rules with:
 
-\`\`\` bash
+\\`\\`\\` bash
 
 sudo iptables-save | sudo tee /etc/iptables/rules-save >/dev/null
 
-\`\`\`
+\\`\\`\\`
 
 \-   Enabled boot restoration:
 
-\`\`\` bash
+\\`\\`\\` bash
 
 sudo rc-update add iptables default
 
-\`\`\`
+\\`\\`\\`
 
 \-   Reinforced that Netfilter rules live in the kernel and the OpenRC
 
     service restores the saved state at boot.
 
-**\*\*### nginx Persistence\*\***
+****\\*\\*### nginx Persistence\\*\\*****
 
 \-   Enabled nginx in the default OpenRC runlevel.
 
@@ -592,15 +592,15 @@ sudo rc-update add iptables default
 
 \-   Verified nginx automatically returned.
 
-\-   Verified the specific \`10.10.10.2:80\` listener.
+\-   Verified the specific \\`10.10.10.2:80\\` listener.
 
 \-   Verified HTTP access after reboot.
 
-**\*\*### Full Phase 6 Reboot Verification\*\***
+****\\*\\*### Full Phase 6 Reboot Verification\\*\\*****
 
 After reboot, the firewall returned as:
 
-\`\`\` text
+\\`\\`\\` text
 
 INPUT policy DROP
 
@@ -612,7 +612,7 @@ RELATED,ESTABLISHED                 ACCEPT
 
 10.10.10.0/24 -> TCP/80 NEW        ACCEPT
 
-\`\`\`
+\\`\\`\\`
 
 \-   Observed the SSH NEW-rule counter increment after reconnecting.
 
@@ -622,9 +622,9 @@ RELATED,ESTABLISHED                 ACCEPT
 
 \-   Verified TCP/80 listener persistence.
 
-\-   Verified remote HTTP \`200 OK\`.
+\-   Verified remote HTTP \\`200 OK\\`.
 
-**\*\*### Firewall Logging Decision\*\***
+****\\*\\*### Firewall Logging Decision\\*\\*****
 
 \-   Deliberately did not add persistent firewall logging to
 
@@ -634,17 +634,17 @@ RELATED,ESTABLISHED                 ACCEPT
 
 \-   Temporary logging remains available for future DNAT troubleshooting.
 
-**\*\*### Documentation\*\***
+****\\*\\*### Documentation\\*\\*****
 
-\-   Added \`docs/11-linux-services-nginx.md\`.
+\-   Added \\`docs/11-linux-services-nginx.md\\`.
 
-\-   Updated \`README.md\`.
+\-   Updated \\`README.md\\`.
 
-\-   Updated \`LAB\_STATUS.md\`.
+\-   Updated \\`LAB\\_STATUS.md\\`.
 
-\-   Updated \`CHANGELOG.md\`.
+\-   Updated \\`CHANGELOG.md\\`.
 
-**\*\*### Phase 6 Complete\*\***
+****\\*\\*### Phase 6 Complete\\*\\*****
 
 Final Alpine-Lab-02 capabilities:
 
@@ -658,7 +658,7 @@ Final Alpine-Lab-02 capabilities:
 
 \-   least-privilege filesystem access
 
-\-   specific binding to \`10.10.10.2:80\`
+\-   specific binding to \\`10.10.10.2:80\\`
 
 \-   remote HTTP access from the lab network
 
@@ -666,9 +666,9 @@ Final Alpine-Lab-02 capabilities:
 
 \-   stateful conntrack handling
 
-\-   SSH restricted to \`10.10.10.0/24\`
+\-   SSH restricted to \\`10.10.10.0/24\\`
 
-\-   HTTP restricted to \`10.10.10.0/24\`
+\-   HTTP restricted to \\`10.10.10.0/24\\`
 
 \-   unapproved inbound ports dropped
 
@@ -678,17 +678,17 @@ Final Alpine-Lab-02 capabilities:
 
 Final nginx exposure:
 
-\`\`\` text
+\\`\\`\\` text
 
 10.10.10.2:80 -> nginx
 
-\`\`\`
+\\`\\`\\`
 
-\------------------------------------------------------------------------
+------------------------------------------------------------------------
 
-**\*\*## Phase 7 -- DNAT / Service Publishing\*\***
+****\\*\\*## Phase 7 -- DNAT / Service Publishing\\*\\*****
 
-**\*\*### Service Publishing Architecture\*\***
+****\\*\\*### Service Publishing Architecture\\*\\*****
 
 \-   Published the nginx service running on Alpine-Lab-02 through
 
@@ -696,11 +696,11 @@ Final nginx exposure:
 
 \-   Established the external-to-internal mapping:
 
-\`\`\`text
+\\`\\`\\`text
 
 192.168.122.252:8080 -> DNAT -> 10.10.10.2:80
 
-\`\`\`
+\\`\\`\\`
 
 \-   Connected routing, NAT, firewalling, conntrack, backend host
 
@@ -708,7 +708,7 @@ Final nginx exposure:
 
 Final architecture:
 
-\`\`\`text
+\\`\\`\\`text
 
 Upstream client
 
@@ -742,45 +742,45 @@ Alpine-Lab-02
 
     nginx
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### DNAT / PREROUTING\*\***
+****\\*\\*### DNAT / PREROUTING\\*\\*****
 
 \-   Added destination NAT on Alpine-Lab-01:
 
-\`\`\`bash
+\\`\\`\\`bash
 
-sudo iptables -t nat -A PREROUTING \\
+sudo iptables -t nat -A PREROUTING \\\
 
-  -i eth0 \\
+  -i eth0 \\\
 
-  -p tcp \\
+  -p tcp \\\
 
-  --dport 8080 \\
+  --dport 8080 \\\
 
-  -j DNAT \\
+  -j DNAT \\\
 
   --to-destination 10.10.10.2:80
 
-\`\`\`
+\\`\\`\\`
 
 \-   Verified that DNAT occurs before the routing decision.
 
 \-   Demonstrated that without DNAT, traffic addressed to
 
-    \`192.168.122.252:8080\` remains local to Alpine-Lab-01 and follows
+    \\`192.168.122.252:8080\\` remains local to Alpine-Lab-01 and follows
 
     the INPUT path.
 
 \-   Demonstrated that after DNAT changes the destination to
 
-    \`10.10.10.2:80\`, Linux routes the packet toward \`eth1\` and the
+    \\`10.10.10.2:80\\`, Linux routes the packet toward \\`eth1\\` and the
 
     packet follows the FORWARD path.
 
 Established:
 
-\`\`\`text
+\\`\\`\\`text
 
 No DNAT:
 
@@ -790,33 +790,33 @@ With DNAT:
 
 eth0 -> PREROUTING/DNAT -> route to 10.10.10.2 -> FORWARD -> eth1
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*### Published-Service FORWARD Rule\*\***
+****\\*\\*### Published-Service FORWARD Rule\\*\\*****
 
 \-   Added an explicit NEW forwarding rule on Alpine-Lab-01:
 
-\`\`\`bash
+\\`\\`\\`bash
 
-sudo iptables -I FORWARD 3 \\
+sudo iptables -I FORWARD 3 \\\
 
-  -i eth0 \\
+  -i eth0 \\\
 
-  -o eth1 \\
+  -o eth1 \\\
 
-  -p tcp \\
+  -p tcp \\\
 
-  -d 10.10.10.2 \\
+  -d 10.10.10.2 \\\
 
-  --dport 80 \\
+  --dport 80 \\\
 
-  -m conntrack --ctstate NEW \\
+  -m conntrack --ctstate NEW \\\
 
   -j ACCEPT
 
-\`\`\`
+\\`\\`\\`
 
-\-   Preserved the existing stateful \`RELATED,ESTABLISHED\` return rule.
+\-   Preserved the existing stateful \\`RELATED,ESTABLISHED\\` return rule.
 
 \-   Reinforced that DNAT does not automatically authorize traffic
 
@@ -824,7 +824,7 @@ sudo iptables -I FORWARD 3 \\
 
 Final FORWARD model:
 
-\`\`\`text
+\\`\\`\\`text
 
 RELATED,ESTABLISHED                              ACCEPT
 
@@ -836,13 +836,13 @@ rate-limited FORWARD-DROP logging
 
 policy DROP
 
-\`\`\`
+\\`\\`\\`
 
-\-   Reinforced iptables rule ordering and that the \`LOG\` target is
+\-   Reinforced iptables rule ordering and that the \\`LOG\\` target is
 
     non-terminating.
 
-**\*\*### Alpine-Lab-02 Backend Firewall\*\***
+****\\*\\*### Alpine-Lab-02 Backend Firewall\\*\\*****
 
 \-   Confirmed that DNAT changes the destination but preserves the
 
@@ -850,53 +850,53 @@ policy DROP
 
 \-   Observed published traffic arriving at Alpine-Lab-02 as:
 
-\`\`\`text
+\\`\\`\\`text
 
 SRC 192.168.122.1
 
 DST 10.10.10.2:80
 
-\`\`\`
+\\`\\`\\`
 
 \-   Added a scoped INPUT rule for upstream published HTTP traffic:
 
-\`\`\`bash
+\\`\\`\\`bash
 
-sudo iptables -I INPUT 4 \\
+sudo iptables -I INPUT 4 \\\
 
-  -p tcp \\
+  -p tcp \\\
 
-  -s 192.168.122.0/24 \\
+  -s 192.168.122.0/24 \\\
 
-  -d 10.10.10.2 \\
+  -d 10.10.10.2 \\\
 
-  --dport 80 \\
+  --dport 80 \\\
 
-  -m conntrack --ctstate NEW \\
+  -m conntrack --ctstate NEW \\\
 
   -j ACCEPT
 
-\`\`\`
+\\`\\`\\`
 
-\-   Kept the existing internal HTTP rule for \`10.10.10.0/24\`.
+\-   Kept the existing internal HTTP rule for \\`10.10.10.0/24\\`.
 
 \-   Reinforced that publishing a service through a router does not
 
     bypass the backend host firewall.
 
-**\*\*### End-to-End HTTP Verification\*\***
+****\\*\\*### End-to-End HTTP Verification\\*\\*****
 
 \-   Verified the published service from Linux Mint:
 
-\`\`\`bash
+\\`\\`\\`bash
 
-curl -I http\://192.168.122.252:8080/
+curl -I http\\://192.168.122.252:8080/
 
-\`\`\`
+\\`\\`\\`
 
 \-   Received:
 
-\`\`\`text
+\\`\\`\\`text
 
 HTTP/1.1 200 OK
 
@@ -906,43 +906,43 @@ Content-Type: text/html
 
 Content-Length: 896
 
-\`\`\`
+\\`\\`\\`
 
-\-   Confirmed nginx itself continues listening on \`10.10.10.2:80\`;
+\-   Confirmed nginx itself continues listening on \\`10.10.10.2:80\\`;
 
     no process needs to listen locally on Alpine-Lab-01 TCP/8080.
 
-**\*\*### conntrack and Reverse NAT\*\***
+****\\*\\*### conntrack and Reverse NAT\\*\\*****
 
-\-   Installed \`conntrack-tools\` on Alpine-Lab-01.
+\-   Installed \\`conntrack-tools\\` on Alpine-Lab-01.
 
 \-   Inspected live TCP connection tracking entries.
 
 \-   Observed the original client tuple:
 
-\`\`\`text
+\\`\\`\\`text
 
-192.168.122.1\:CLIENT\_PORT -> 192.168.122.252:8080
+192.168.122.1\\\:CLIENT\\_PORT -> 192.168.122.252:8080
 
-\`\`\`
+\\`\\`\\`
 
 \-   Observed the backend/reply tuple:
 
-\`\`\`text
+\\`\\`\\`text
 
-10.10.10.2:80 -> 192.168.122.1\:CLIENT\_PORT
+10.10.10.2:80 -> 192.168.122.1\\\:CLIENT\\_PORT
 
-\`\`\`
+\\`\\`\\`
 
 \-   Verified conntrack maintains the NAT relationship and allows the
 
     return traffic to be reverse-translated so that the client continues
 
-    seeing \`192.168.122.252:8080\`.
+    seeing \\`192.168.122.252:8080\\`.
 
-\-   Observed \`[ASSURED]\` and \`TIME\_WAIT\` states.
+\-   Observed \\`[ASSURED]\\` and \\`TIME\\_WAIT\\` states.
 
-**\*\*### Nmap Through the Published Endpoint\*\***
+****\\*\\*### Nmap Through the Published Endpoint\\*\\*****
 
 \-   Tested service discovery against TCP/8080.
 
@@ -954,63 +954,63 @@ Content-Length: 896
 
 \-   Repeated the test with:
 
-\`\`\`bash
+\\`\\`\\`bash
 
 nmap -Pn -sV -p 8080 192.168.122.252
 
-\`\`\`
+\\`\\`\\`
 
 \-   Identified:
 
-\`\`\`text
+\\`\\`\\`text
 
 8080/tcp open  http  nginx
 
-\`\`\`
+\\`\\`\\`
 
 \-   Confirmed Nmap can fingerprint the application reached through DNAT
 
     without revealing the private backend address by itself.
 
-**\*\*### tcpdump Packet-Flow Analysis\*\***
+****\\*\\*### tcpdump Packet-Flow Analysis\\*\\*****
 
-\-   Captured the external/client-facing flow on Alpine-Lab-01 \`eth0\`:
+\-   Captured the external/client-facing flow on Alpine-Lab-01 \\`eth0\\`:
 
-\`\`\`bash
+\\`\\`\\`bash
 
 sudo tcpdump -ni eth0 'tcp port 8080'
 
-\`\`\`
+\\`\\`\\`
 
 \-   Observed:
 
-\`\`\`text
+\\`\\`\\`text
 
-192.168.122.1\:CLIENT\_PORT -> 192.168.122.252:8080
+192.168.122.1\\\:CLIENT\\_PORT -> 192.168.122.252:8080
 
-192.168.122.252:8080 -> 192.168.122.1\:CLIENT\_PORT
+192.168.122.252:8080 -> 192.168.122.1\\\:CLIENT\\_PORT
 
-\`\`\`
+\\`\\`\\`
 
-\-   Captured the internal/backend-facing flow on \`eth1\`:
+\-   Captured the internal/backend-facing flow on \\`eth1\\`:
 
-\`\`\`bash
+\\`\\`\\`bash
 
 sudo tcpdump -ni eth1 'host 10.10.10.2 and tcp port 80'
 
-\`\`\`
+\\`\\`\\`
 
 \-   Observed:
 
-\`\`\`text
+\\`\\`\\`text
 
-192.168.122.1\:CLIENT\_PORT -> 10.10.10.2:80
+192.168.122.1\\\:CLIENT\\_PORT -> 10.10.10.2:80
 
-10.10.10.2:80 -> 192.168.122.1\:CLIENT\_PORT
+10.10.10.2:80 -> 192.168.122.1\\\:CLIENT\\_PORT
 
-\`\`\`
+\\`\\`\\`
 
-\-   Used the \`any\` pseudo-interface to observe both forms of the same
+\-   Used the \\`any\\` pseudo-interface to observe both forms of the same
 
     connection simultaneously.
 
@@ -1018,11 +1018,11 @@ sudo tcpdump -ni eth1 'host 10.10.10.2 and tcp port 80'
 
     reply path.
 
-**\*\*### TCP Flags and Sequence Analysis\*\***
+****\\*\\*### TCP Flags and Sequence Analysis\\*\\*****
 
 \-   Reviewed TCP flags visible in tcpdump:
 
-\`\`\`text
+\\`\\`\\`text
 
 [S]   SYN
 
@@ -1036,7 +1036,7 @@ sudo tcpdump -ni eth1 'host 10.10.10.2 and tcp port 80'
 
 [R.]  RST + ACK
 
-\`\`\`
+\\`\\`\\`
 
 \-   Traced a complete TCP three-way handshake.
 
@@ -1048,11 +1048,11 @@ sudo tcpdump -ni eth1 'host 10.10.10.2 and tcp port 80'
 
 \-   Verified that:
 
-\`\`\`text
+\\`\\`\\`text
 
 seq 1:84 length 83
 
-\`\`\`
+\\`\\`\\`
 
 means 83 payload bytes.
 
@@ -1066,43 +1066,43 @@ means 83 payload bytes.
 
     retransmissions.
 
-**\*\*### Controlled Failure Experiments\*\***
+****\\*\\*### Controlled Failure Experiments\\*\\*****
 
 Four major failure modes were deliberately reproduced.
 
-**\*\*1. nginx stopped\*\***
+****\\*\\*1. nginx stopped\\*\\*****
 
 \-   Stopped nginx while networking and firewall rules remained valid.
 
 \-   Observed the SYN reach Alpine-Lab-02.
 
-\-   Observed Alpine-Lab-02 return \`RST+ACK\`.
+\-   Observed Alpine-Lab-02 return \\`RST+ACK\\`.
 
 \-   Observed reverse NAT convert the reply source back to
 
-    \`192.168.122.252:8080\`.
+    \\`192.168.122.252:8080\\`.
 
 Diagnostic signature:
 
-\`\`\`text
+\\`\\`\\`text
 
 SYN -> RST
 
-\`\`\`
+\\`\\`\\`
 
 Interpretation:
 
-\`\`\`text
+\\`\\`\\`text
 
 Network path works, but no service is listening.
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*2. Alpine-Lab-02 published HTTP INPUT rule removed\*\***
+****\\*\\*2. Alpine-Lab-02 published HTTP INPUT rule removed\\*\\*****
 
 \-   Left nginx running.
 
-\-   Observed SYN packets on both Lab-01 \`eth0\` and \`eth1\`.
+\-   Observed SYN packets on both Lab-01 \\`eth0\\` and \\`eth1\\`.
 
 \-   Observed no reply from Alpine-Lab-02.
 
@@ -1110,7 +1110,7 @@ Network path works, but no service is listening.
 
 Interpretation:
 
-\`\`\`text
+\\`\\`\\`text
 
 DNAT works
 
@@ -1120,19 +1120,19 @@ packet reaches backend
 
 backend INPUT DROP blocks it
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*3. Alpine-Lab-01 published-service FORWARD rule removed\*\***
+****\\*\\*3. Alpine-Lab-01 published-service FORWARD rule removed\\*\\*****
 
 \-   Kept DNAT active.
 
-\-   Observed repeated SYNs arriving on \`eth0\`.
+\-   Observed repeated SYNs arriving on \\`eth0\\`.
 
-\-   Observed no corresponding packet leaving \`eth1\`.
+\-   Observed no corresponding packet leaving \\`eth1\\`.
 
 Interpretation:
 
-\`\`\`text
+\\`\\`\\`text
 
 packet reaches router
 
@@ -1140,11 +1140,632 @@ DNAT/routing path exists
 
 FORWARD DROP blocks transmission to backend
 
-\`\`\`
+\\`\\`\\`
 
-**\*\*4. DNAT rule removed\*\***
+****\\*\\*4. DNAT rule removed\\*\\*****
 
 \-   Removed the PREROUTING DNAT rule while keeping the remaining service
 
     configuration intact.
 
+\-   Observed repeated SYNs only on \\`eth0\\`.
+
+\-   Confirmed that the destination remained \\`192.168.122.252:8080\\`.
+
+\-   Established that the packet was therefore considered local and
+
+    followed the INPUT chain rather than FORWARD.
+
+Interpretation:
+
+\\`\\`\\`text
+
+No DNAT -> local destination -> INPUT -> DROP
+
+\\`\\`\\`
+
+Final troubleshooting matrix:
+
+\\`\\`\\`text
+
+DNAT missing:
+
+    SYN on eth0 only
+
+    packet follows INPUT
+
+FORWARD allow missing:
+
+    SYN on eth0 only
+
+    translated flow blocked before eth1
+
+Backend INPUT allow missing:
+
+    SYN on eth0 and eth1
+
+    no reply
+
+    repeated retransmissions
+
+nginx stopped:
+
+    SYN reaches backend
+
+    RST returns
+
+Everything working:
+
+    SYN / SYN-ACK / ACK
+
+    HTTP 200
+
+    clean FIN / ACK close
+
+\\`\\`\\`
+
+****\\*\\*### Persistence and Recovery\\*\\*****
+
+\-   Saved the Alpine-Lab-01 DNAT and FORWARD rules to
+
+    \\`/etc/iptables/rules-save\\`.
+
+\-   Saved the Alpine-Lab-02 published HTTP INPUT rule to
+
+    \\`/etc/iptables/rules-save\\`.
+
+\-   Verified the relevant rules directly in the saved files.
+
+\-   Performed a reboot/recovery test.
+
+\-   Confirmed nginx, firewall rules, DNAT, forwarding, and HTTP
+
+    publishing returned correctly.
+
+\-   During controlled failure testing, removed only runtime rules and
+
+    deliberately avoided overwriting the known-good persistent files.
+
+\-   Restored every temporarily removed runtime rule.
+
+\-   Performed the final external HTTP test:
+
+\\`\\`\\`bash
+
+curl -I http\\://192.168.122.252:8080/
+
+\\`\\`\\`
+
+\-   Received final \\`HTTP/1.1 200 OK\\`.
+
+****\\*\\*### Documentation\\*\\*****
+
+\-   Added \\`docs/12-service-publishing-dnat.md\\`.
+
+\-   Updated \\`README.md\\`.
+
+\-   Updated \\`LAB\\_STATUS.md\\`.
+
+\-   Updated \\`CHANGELOG.md\\`.
+
+****\\*\\*### Phase 7 Complete\\*\\*****
+
+Final published service:
+
+\\`\\`\\`text
+
+192.168.122.252:8080
+
+        |
+
+        | DNAT
+
+        v
+
+10.10.10.2:80
+
+        |
+
+        v
+
+      nginx
+
+\\`\\`\\`
+
+Phase 7 now connects:
+
+\-   routing
+
+\-   DNAT
+
+\-   stateful forwarding
+
+\-   backend host firewalling
+
+\-   nginx
+
+\-   conntrack
+
+\-   reverse NAT
+
+\-   Nmap service discovery
+
+\-   tcpdump packet analysis
+
+\-   TCP connection analysis
+
+\-   controlled failure troubleshooting
+
+\-   persistence and reboot recovery
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+****## Phase 8 -- Storage Management****
+
+****### Storage Inspection****
+
+- Inspected existing VM disks with `virsh domblklist` and `virsh domblkinfo`.
+
+- Inspected qcow2 virtual capacity, physical allocation, and metadata with `qemu-img info`.
+
+- Compared host file views using `ls`, `du`, and libvirt volume information.
+
+- Inspected the `default` libvirt storage pool and its volumes.
+
+- Reinforced the storage stack:
+
+```text
+
+qcow2 image
+
+    ↓
+
+QEMU / libvirt
+
+    ↓
+
+virtual block device
+
+    ↓
+
+partition
+
+    ↓
+
+filesystem
+
+    ↓
+
+mount point
+
+```
+
+****### qcow2 and RAW****
+
+- Created temporary RAW and qcow2 images.
+
+- Verified that RAW images can also be sparse.
+
+- Compared virtual size with actual host allocation.
+
+- Used `qemu-io` to write safely to qcow2 virtual contents.
+
+- Checked qcow2 integrity with `qemu-img check`.
+
+- Converted RAW to qcow2.
+
+- Practiced:
+
+```bash
+
+qemu-img info IMAGE
+
+qemu-img create -f FORMAT IMAGE SIZE
+
+qemu-img check IMAGE
+
+qemu-img resize IMAGE SIZE
+
+qemu-img convert -f INPUT -O OUTPUT SOURCE DESTINATION
+
+```
+
+****### Additional Alpine-Lab-02 Data Disk****
+
+- Created a 2 GiB qcow2 libvirt volume:
+
+```text
+
+Alpine-Lab-02-data.qcow2
+
+```
+
+- Attached it persistently to Alpine-Lab-02.
+
+- Observed that libvirt target names and guest `/dev/vdX` enumeration did not match.
+
+- Reinforced that persistent configuration should not rely solely on `/dev/vda` or `/dev/vdb`.
+
+****### Partition, Filesystem, and Persistent Mount****
+
+- Partitioned the new data disk using `fdisk`.
+
+- Created an ext4 filesystem with `mkfs.ext4`.
+
+- Identified its filesystem UUID with `blkid`.
+
+- Created the mount point:
+
+```text
+
+/srv/data
+
+```
+
+- Added the filesystem to `/etc/fstab` using UUID.
+
+- Verified `mount -a`.
+
+- Rebooted Alpine-Lab-02 and confirmed automatic mounting.
+
+- Created persistent test data and verified it after reboot.
+
+****### Storage Resize****
+
+- Expanded `Alpine-Lab-02-data.qcow2` from 2 GiB to 3 GiB with `qemu-img resize`.
+
+- Verified that increasing qcow2 capacity did not automatically enlarge the guest partition or filesystem.
+
+- Expanded the MBR partition while preserving its original starting sector.
+
+- Installed the required ext4 resize utility on Alpine.
+
+- Expanded the mounted ext4 filesystem online with:
+
+```bash
+
+sudo resize2fs /dev/vda1
+
+```
+
+Final result:
+
+```text
+
+qcow2 volume     3 GiB
+
+partition        3 GiB
+
+ext4             ~2.9 GiB
+
+mount point      /srv/data
+
+```
+
+- Verified that existing data remained intact throughout the resize.
+
+****### Storage Troubleshooting****
+
+- Deliberately introduced an incorrect `/srv/data` UUID in `/etc/fstab`.
+
+- Observed:
+
+```text
+
+mount: /srv/data: can't find UUID=...
+
+```
+
+- Used `blkid` to identify the correct filesystem UUID.
+
+- Restored the valid `/etc/fstab`.
+
+- Verified recovery with `mount -a`, `df`, and the persistent test file.
+
+****### Documentation****
+
+- Added `docs/13-storage-management.md`.
+
+- Updated `README.md`.
+
+- Updated `LAB_STATUS.md`.
+
+- Updated `CHANGELOG.md`.
+
+****### Phase 8 Complete****
+
+Phase 8 established practical understanding of:
+
+- libvirt storage pools and volumes
+
+- qcow2 and RAW images
+
+- sparse allocation
+
+- guest virtual block devices
+
+- partitioning
+
+- ext4 filesystems
+
+- persistent UUID-based mounts
+
+- multi-layer virtual disk resizing
+
+- storage troubleshooting and recovery
+
+Final Alpine-Lab-02 data-storage path:
+
+```text
+
+Alpine-Lab-02-data.qcow2 (3 GiB)
+
+        ↓
+
+QEMU / VirtIO
+
+        ↓
+
+guest data disk
+
+        ↓
+
+/dev/vda1 (3 GiB)
+
+        ↓
+
+ext4 (~2.9 GiB)
+
+        ↓
+
+/srv/data
+
+        ↓
+
+persistent via UUID in /etc/fstab
+
+```
+
+------------------------------------------------------------------------
+
+****
+
+------------------------------------------------------------------------
+
+## Phase 9 -- Containers & Automation
+
+### Podman Fundamentals
+
+- Installed and used Podman on Linux Mint.
+- Practiced container image and lifecycle management with `run`, `ps`, `exec`, `stop`, `start`, and `rm`.
+- Demonstrated that containers share the host kernel while providing isolated userspace and processes.
+- Introduced rootless and daemonless container operation.
+- Distinguished images from running/stopped container instances.
+
+### Port Publishing and nginx
+
+- Ran nginx in a container.
+- Published container TCP/80 through Linux Mint TCP/8080.
+- Verified HTTP access with `curl`.
+- Reinforced the mapping:
+
+```text
+0.0.0.0:8080 -> container:80/tcp
+```
+
+- Established that `0.0.0.0` publishes on all host IPv4 interfaces.
+
+### Bind Mounts and Named Volumes
+
+- Mounted `~/container-web` into nginx as a read-only bind mount.
+- Verified host file changes immediately appeared inside the served container content.
+- Verified bind-mounted data survived container deletion.
+- Created the Podman-managed `web-data` named volume.
+- Recreated an nginx container with the same named volume and verified persistent content.
+
+Established:
+
+```text
+container = disposable runtime
+volume    = persistent data
+```
+
+### Logs and Environment Variables
+
+- Inspected container output with `podman logs`.
+- Observed nginx and Flask HTTP requests and status codes.
+- Passed runtime configuration using `-e`.
+- Reinforced the separation between reusable images and runtime configuration.
+
+### Custom Container Images
+
+- Created a custom nginx image with a `Containerfile`.
+- Built images using:
+
+```bash
+podman build -t IMAGE .
+```
+
+- Created a custom Python application image based on `python:3.13-slim`.
+- Installed Flask and `psycopg[binary]` during the image build.
+
+### Container Networking
+
+- Created the dedicated `app-net` network.
+- Connected containers to the custom network.
+- Verified container-to-container communication using container names.
+- Demonstrated that service discovery avoids relying on changing container IP addresses.
+- Observed the Podman network using the `10.89.0.0/24` range during the lab.
+
+### PostgreSQL and Persistent Database Storage
+
+- Created the `postgres-data` named volume.
+- Started PostgreSQL on `app-net`.
+- Configured the database through environment variables:
+
+```text
+POSTGRES_DB=labdb
+POSTGRES_USER=labuser
+POSTGRES_PASSWORD=labpass
+```
+
+- Used the PostgreSQL 18 storage layout with the persistent volume mounted at `/var/lib/postgresql`.
+- Deliberately kept PostgreSQL TCP/5432 internal to `app-net`.
+- Verified local `psql` access inside the database container.
+- Verified TCP database access from another container using `postgres-db` as the hostname.
+- Created the `notes` table and inserted persistent data.
+- Deleted and recreated the PostgreSQL container.
+- Verified the database row survived through the `postgres-data` volume.
+
+### Flask + PostgreSQL Multi-Container Application
+
+- Built a Flask application that reads database configuration from environment variables.
+- Connected Flask to PostgreSQL through `app-net` using the hostname `postgres-db`.
+- Published Flask TCP/5000 through Linux Mint:
+
+```text
+0.0.0.0:5000 -> python-app:5000/tcp
+```
+
+Final application path:
+
+```text
+Client
+  ↓
+Linux Mint :5000
+  ↓
+Podman port publishing
+  ↓
+python-app / Flask
+  ↓
+app-net
+  ↓
+postgres-db :5432
+  ↓
+postgres-data
+```
+
+### CRUD API
+
+Implemented and verified:
+
+```text
+GET    /notes       -> READ
+POST   /notes       -> CREATE
+PUT    /notes/<id>  -> UPDATE
+DELETE /notes/<id>  -> DELETE
+```
+
+Observed HTTP results included:
+
+```text
+GET     -> 200
+POST    -> 201
+PUT     -> 200
+DELETE  -> 204
+```
+
+A complete create/read/update/delete cycle was performed successfully.
+
+### KVM Lab Integration
+
+- Published the Flask API through Linux Mint's `virbr10` address:
+
+```text
+10.10.10.254:5000
+```
+
+- Verified successful API access from Alpine-Lab-01.
+- Verified successful API access from Alpine-Lab-02.
+- Reinforced that `10.10.10.254` is directly reachable from the Alpine guests because all are on `10.10.10.0/24`.
+- Distinguished the KVM subnet from Podman's internal `app-net`: the container itself is not directly on `10.10.10.0/24`; Mint publishes the service into that subnet.
+
+### Security Observations
+
+- Confirmed Flask was reachable through all Mint IPv4 interfaces because of `0.0.0.0:5000`.
+- Identified that the lab CRUD API has no authentication.
+- Noted that database credentials are supplied through environment variables.
+- Observed Flask's expected Werkzeug development-server warning.
+- Kept PostgreSQL unexposed to the Mint host by not publishing TCP/5432.
+- Deliberately deferred production WSGI deployment and further application hardening as outside the phase scope.
+
+### Basic Automation
+
+Created `start-stack.sh`:
+
+```sh
+#!/bin/sh
+
+echo "Starting PostgreSQL..."
+podman start postgres-db
+
+echo "Starting Python API..."
+podman start python-app
+
+echo
+echo "Running containers:"
+podman ps
+```
+
+- Made the script executable.
+- Stopped the application containers.
+- Successfully restarted the stack with `./start-stack.sh`.
+- Verified the complete application path afterward with `curl`.
+
+### Documentation
+
+- Added `docs/14-containers-automation.md`.
+- Updated `README.md`.
+- Updated `LAB_STATUS.md`.
+- Updated `CHANGELOG.md`.
+
+### Phase 9 Complete
+
+Phase 9 established practical understanding of:
+
+- container lifecycle and images
+- rootless and daemonless operation
+- port publishing
+- bind mounts and named volumes
+- container logging
+- environment variables
+- Containerfiles and custom image builds
+- container networking and name resolution
+- persistent PostgreSQL storage
+- multi-container application architecture
+- CRUD API operation
+- KVM-to-container service access
+- basic shell automation
+
+Final container application:
+
+```text
+KVM lab / Linux Mint clients
+          ↓
+10.10.10.254:5000
+          ↓
+     python-app
+       Flask
+          ↓
+       app-net
+          ↓
+    postgres-db
+          ↓
+   postgres-data
+```
+
+------------------------------------------------------------------------
+
+## Next -- Phase 10
+
+Phase 10 will introduce **VM Provisioning & Automation**.
+
+Planned topics:
+
+- VM templates
+- cloud-init
+- repeatable VM provisioning
+
+Before beginning Phase 10, the completed Phase 9 documentation will be reviewed, committed, pushed, and preserved with the project checkpoint snapshots.
